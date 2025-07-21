@@ -43,7 +43,10 @@ export const Navbar2 = (props: Navbar2Props) => {
       <div className="mx-auto size-full lg:grid lg:grid-cols-[0.375fr_1fr_0.375fr] lg:items-center lg:justify-between lg:gap-4">
         <div className="flex min-h-16 items-center justify-between px-[5%] md:min-h-18 lg:min-h-full lg:px-0">
           <a href={logo.url}>
-            <img src={logo.src} alt={logo.alt} />
+            <img src={logo.src} 
+            alt={logo.alt}
+            className="h-16"
+            />
           </a>
           <div className="flex items-center gap-4 lg:hidden">
             <div>
@@ -180,26 +183,30 @@ const SubMenu = ({ navLink, isMobile }: { navLink: NavLink; isMobile: boolean })
 export const Navbar2Defaults: Props = {
   logo: {
     url: "#",
-    src: "https://d22po4pjz3o32e.cloudfront.net/logo-image.svg",
+    src: "./src/assets/logo.png",
     alt: "Logo image",
   },
   navLinks: [
-    { title: "Link One", url: "#" },
-    { title: "Link Two", url: "#" },
-    { title: "Link Three", url: "#" },
+    { title: "O nama", url: "#" },
     {
-      title: "Link Four",
+      title: "Usluge",
       url: "#",
       subMenuLinks: [
-        { title: "Link Five", url: "#" },
-        { title: "Link Six", url: "#" },
-        { title: "Link Seven", url: "#" },
+        { title: "Fizioterapeutski pregled", url: "#" },
+        { title: "Fizikalna terapija", url: "#" },
+        { title: "Dry needling", url: "#" },
+        { title: "Kineziterapija", url: "#" },
+        { title: "Masaze", url: "#" },
+        { title: "Tecar terapija", url: "#" },
+        { title: "Spinalna dekompresiona terapija", url: "#" },
       ],
     },
+    { title: "Cenovnik", url: "#" },
+    { title: "Kontakt", url: "#" },
   ],
   buttons: [
     {
-      title: "Button",
+      title: "Zakazi termin",
       size: "sm",
     },
   ],
