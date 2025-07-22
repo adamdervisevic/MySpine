@@ -16,7 +16,7 @@ export default function App() {
           <Header7 />
           <Layout22 />
           <Gallery18 />
-          <Gallery20 />
+          <Gallery20 /> 
           <Testimonial19 />
           <Footer4 /> 
     </div>

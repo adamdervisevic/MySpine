@@ -17,15 +17,13 @@ type ImageProps = {
 };
 
 type Props = {
-  heading: string;
-  description: string;
   images: ImageProps[];
 };
 
 export type Gallery20Props = React.ComponentPropsWithoutRef<"section"> & Partial<Props>;
 
 export const Gallery20 = (props: Gallery20Props) => {
-  const { heading, description, images } = {
+  const { images } = {
     ...Gallery20Defaults,
     ...props,
   };
@@ -44,15 +42,9 @@ export const Gallery20 = (props: Gallery20Props) => {
   }, [api]);
 
   return (
-    <section id="relume" className="overflow-hidden px-[5%] py-16 md:py-24 lg:py-28">
+    <section id="relume" className="overflow-hidden px-0 py-2">
       <div className="container">
-        <div className="rb-12 mb-12 md:mb-18 lg:mb-20">
-          <h2 className="rb-5 mb-5 text-5xl font-bold md:mb-6 md:text-7xl lg:text-8xl">
-            {heading}
-          </h2>
-          <p className="md:text-md">{description}</p>
-        </div>
-        {/* for all available options: https://www.embla-carousel.com/api/options/ */}
+        {/* OVDJE NEMA NASLOVA NI OPISA */}
         <Carousel
           setApi={setApi}
           opts={{
@@ -62,19 +54,22 @@ export const Gallery20 = (props: Gallery20Props) => {
         >
           <CarouselContent className="ml-0">
             {images.map((image, index) => (
-              <CarouselItem key={index} className="pl-0 pr-6 md:pr-8">
-                <div className="w-full">
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className={clsx(
-                      "aspect-video size-full object-cover transition-opacity duration-700 ease-linear",
-                      {
-                        "opacity-30": current !== index + 1,
-                      },
-                    )}
-                  />
-                </div>
+              <CarouselItem
+                key={index}
+                className="flex justify-center items-center pl-0 pr-6 md:pr-8"
+              >
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className={clsx(
+                    "aspect-video object-cover rounded-lg transition-opacity duration-700 ease-linear",
+                    {
+                      "opacity-30": current !== index + 1,
+                    },
+                    // OGRANIČENJE VISINE (npr. 90vh, da ne prelazi ekran)
+                    "w-full max-w-screen-2xl max-h-[80vh]"
+                  )}
+                />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -103,8 +98,6 @@ export const Gallery20 = (props: Gallery20Props) => {
 };
 
 export const Gallery20Defaults: Props = {
-  heading: "Image Gallery",
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   images: [
     {
       src: "https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg",
@@ -120,3 +113,5 @@ export const Gallery20Defaults: Props = {
     },
   ],
 };
+
+export default Gallery20;

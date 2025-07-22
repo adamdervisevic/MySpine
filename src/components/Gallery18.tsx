@@ -61,7 +61,7 @@ export const Gallery18 = (props: Gallery18Props) => {
               align: "start",
             }}
           >
-            <div className="relative">
+            <div className="w-full max-w-4xl mx-auto overflow-hidden">
               <CarouselContent className="ml-0">
                 {images.map((image, index) => (
                   <CarouselItem key={index} className="basis-1/2 px-3 md:basis-1/3 md:px-4">
