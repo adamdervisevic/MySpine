@@ -38,15 +38,12 @@ export const Navbar2 = (props: Navbar2Props) => {
   return (
     <section
       id="relume"
-      className="z-[999] flex w-full items-center border-b border-border-primary bg-background-primary lg:min-h-18 lg:px-[5%]"
+      className="absolute top-0 left-0 z-[999] flex w-full items-center bg-transparent lg:min-h-18 lg:px-[5%]"
     >
-      <div className="mx-auto size-full lg:grid lg:grid-cols-[0.375fr_1fr_0.375fr] lg:items-center lg:justify-between lg:gap-4">
+      <div className="mx-auto size-full lg:grid lg:grid-cols-[0.375fr_1fr_0.375fr] lg:items-center lg:justify-between lg:gap-">
         <div className="flex min-h-16 items-center justify-between px-[5%] md:min-h-18 lg:min-h-full lg:px-0">
           <a href={logo.url}>
-            <img src={logo.src} 
-            alt={logo.alt}
-            className="h-16"
-            />
+            <img src={logo.src} alt={logo.alt} className="h-16" />
           </a>
           <div className="flex items-center gap-4 lg:hidden">
             <div>
@@ -60,53 +57,68 @@ export const Navbar2 = (props: Navbar2Props) => {
               className="-mr-2 flex size-12 flex-col items-center justify-center"
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             >
-              <motion.span
-                className="my-[3px] h-0.5 w-6 bg-black"
-                animate={isMobileMenuOpen ? ["open", "rotatePhase"] : "closed"}
-                variants={topLineVariants}
-              />
-              <motion.span
-                className="my-[3px] h-0.5 w-6 bg-black"
-                animate={isMobileMenuOpen ? "open" : "closed"}
-                variants={middleLineVariants}
-              />
-              <motion.span
-                className="my-[3px] h-0.5 w-6 bg-black"
-                animate={isMobileMenuOpen ? ["open", "rotatePhase"] : "closed"}
-                variants={bottomLineVariants}
-              />
+              <span className="my-[3px] h-0.5 w-6 bg-white" />
+              <span className="my-[3px] h-0.5 w-6 bg-white" />
+              <span className="my-[3px] h-0.5 w-6 bg-white" />
             </button>
           </div>
         </div>
-        <motion.div
-          variants={{
-            open: {
-              height: "var(--height-open, 100dvh)",
-            },
-            close: {
-              height: "var(--height-closed, 0)",
-            },
-          }}
-          animate={isMobileMenuOpen ? "open" : "close"}
-          initial="close"
-          exit="close"
-          transition={{ duration: 0.4 }}
-          className="overflow-hidden px-[5%] text-center lg:flex lg:items-center lg:justify-center lg:px-0 lg:[--height-closed:auto] lg:[--height-open:auto]"
-        >
-          {navLinks.map((navLink, index) =>
-            navLink.subMenuLinks && navLink.subMenuLinks.length > 0 ? (
-              <SubMenu key={index} navLink={navLink} isMobile={isMobile} />
-            ) : (
-              <a
-                key={index}
-                href={navLink.url}
-                className="block py-3 text-md first:pt-7 lg:px-4 lg:py-2 lg:text-base first:lg:pt-2"
-              >
-                {navLink.title}
-              </a>
-            ),
-          )}
-        </motion.div>
+
+        {/* MOBILE MENU */}
+        {isMobileMenuOpen && isMobile && (
+          <div className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-lg flex flex-col items-center justify-start px-[5%] pt-20">
+            <button
+              className="absolute top-8 right-8 text-4xl text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Zatvori meni"
+            >
+              &times;
+            </button>
+            {navLinks.map((navLink, index) =>
+              navLink.subMenuLinks && navLink.subMenuLinks.length > 0 ? (
+                <SubMenu key={index} navLink={navLink} isMobile={true} />
+              ) : (
+                <a
+                  key={index}
+                  href={navLink.url}
+                  className="block font-bold tracking-wide py-4 text-2xl text-white border-b border-white/10 last:border-none"
+                  style={{ cursor: "default" }}
+                >
+                  {navLink.title}
+                </a>
+              )
+            )}
+          </div>
+        )}
+
+        {/* DESKTOP MENU */}
+        {!isMobile && (
+          <motion.div
+            variants={{
+              open: { height: "var(--height-open, 100dvh)" },
+              close: { height: "var(--height-closed, 0)" },
+            }}
+            animate="open"
+            initial="open"
+            transition={{ duration: 0.4 }}
+            className="overflow-hidden px-[5%] text-center lg:flex lg:items-center lg:justify-center lg:px-0 lg:[--height-closed:auto] lg:[--height-open:auto]"
+          >
+            {navLinks.map((navLink, index) =>
+              navLink.subMenuLinks && navLink.subMenuLinks.length > 0 ? (
+                <SubMenu key={index} navLink={navLink} isMobile={false} />
+              ) : (
+                <a
+                  key={index}
+                  href={navLink.url}
+                  className="block font-medium tracking-wide px-5 py-2 text-[22px] text-white"
+                >
+                  {navLink.title}
+                </a>
+              )
+            )}
+          </motion.div>
+        )}
+
         <div className="hidden justify-self-end lg:block">
           {buttons.map((button, index) => (
             <Button key={index} className="px-6 py-2" {...button}>
@@ -127,23 +139,41 @@ const SubMenu = ({ navLink, isMobile }: { navLink: NavLink; isMobile: boolean })
       onMouseEnter={() => !isMobile && setIsDropdownOpen(true)}
       onMouseLeave={() => !isMobile && setIsDropdownOpen(false)}
     >
+      {/* GORNJI LINK – ista klasa kao svi linkovi */}
       <button
-        className="flex w-full items-center justify-center gap-4 py-3 text-center text-md lg:w-auto lg:flex-none lg:justify-start lg:gap-2 lg:px-4 lg:py-2 lg:text-base"
+        className={
+          isMobile
+            ? "w-full font-bold text-2xl py-4 text-white flex items-center justify-center gap-2 border-b border-white/10 last:border-none"
+            : "flex items-center gap-2 py-3 text-center text-md lg:w-auto lg:justify-start lg:gap-2 lg:px-4 lg:py-2 lg:text-lg text-white"
+        }
         onClick={() => setIsDropdownOpen((prev) => !prev)}
+        type="button"
+        style={{ cursor: isMobile ? "default" : "pointer" }}
       >
         <span>{navLink.title}</span>
-        <motion.span
-          animate={isDropdownOpen ? "rotated" : "initial"}
-          variants={{
-            rotated: { rotate: 180 },
-            initial: { rotate: 0 },
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          <RxChevronDown />
-        </motion.span>
+        <span style={{ display: "flex", alignItems: "center" }}>
+          <RxChevronDown size={22} />
+        </span>
       </button>
-      {isDropdownOpen && (
+
+      {/* MOBILNI SUBMENI */}
+      {isDropdownOpen && isMobile && (
+        <div className="w-full flex flex-col items-center bg-white/10 backdrop-blur-md rounded-lg shadow mb-2">
+          {navLink.subMenuLinks?.map((subMenuLink, index) => (
+            <a
+              key={index}
+              href={subMenuLink.url}
+              className="block text-base py-2 text-white w-full text-center rounded"
+              style={{ cursor: "default" }}
+            >
+              {subMenuLink.title}
+            </a>
+          ))}
+        </div>
+      )}
+
+      {/* DESKTOP SUBMENI */}
+      {isDropdownOpen && !isMobile && (
         <AnimatePresence>
           <motion.nav
             animate={isDropdownOpen ? "open" : "close"}
@@ -152,7 +182,7 @@ const SubMenu = ({ navLink, isMobile }: { navLink: NavLink; isMobile: boolean })
             variants={{
               open: {
                 visibility: "visible",
-                opacity: "var(--opacity-open, 100%)",
+                opacity: "var(--opacity-open, 1000%)",
                 y: 0,
               },
               close: {
@@ -162,7 +192,7 @@ const SubMenu = ({ navLink, isMobile }: { navLink: NavLink; isMobile: boolean })
               },
             }}
             transition={{ duration: 0.2 }}
-            className="bg-background-primary lg:absolute lg:z-50 lg:border lg:border-border-primary lg:p-2 lg:[--y-close:25%]"
+            className="bg-white/10 backdrop-blur-md text-white shadow-lg rounded-lg lg:absolute lg:z-50 lg:border lg:border-white/20 lg:p-2 lg:[--y-close:25%]"
           >
             {navLink.subMenuLinks?.map((subMenuLink, index) => (
               <a
@@ -210,47 +240,4 @@ export const Navbar2Defaults: Props = {
       size: "sm",
     },
   ],
-};
-
-const topLineVariants = {
-  open: {
-    translateY: 8,
-    transition: { delay: 0.1 },
-  },
-  rotatePhase: {
-    rotate: -45,
-    transition: { delay: 0.2 },
-  },
-  closed: {
-    translateY: 0,
-    rotate: 0,
-    transition: { duration: 0.2 },
-  },
-};
-
-const middleLineVariants = {
-  open: {
-    width: 0,
-    transition: { duration: 0.1 },
-  },
-  closed: {
-    width: "1.5rem",
-    transition: { delay: 0.3, duration: 0.2 },
-  },
-};
-
-const bottomLineVariants = {
-  open: {
-    translateY: -8,
-    transition: { delay: 0.1 },
-  },
-  rotatePhase: {
-    rotate: 45,
-    transition: { delay: 0.2 },
-  },
-  closed: {
-    translateY: 0,
-    rotate: 0,
-    transition: { duration: 0.2 },
-  },
 };

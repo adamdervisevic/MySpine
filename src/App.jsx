@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import './index.css'
 import { Navbar2 } from './components/Navbar2';
 import {Header7} from './components/Header7';
 import {Layout22} from './components/Layout22';

@@ -102,15 +102,15 @@ export const Gallery18Defaults: Props = {
   description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   images: [
     {
-      src: "https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg",
+      src: "./src/assets/1.png",
       alt: "Relume placeholder image 1",
     },
     {
-      src: "https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg",
+      src: "./src/assets/2.png",
       alt: "Relume placeholder image 2",
     },
     {
-      src: "https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg",
+      src: "./src/assets/3.png",
       alt: "Relume placeholder image 3",
     },
     {
