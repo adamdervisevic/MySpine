@@ -43,7 +43,7 @@ export const Navbar2 = (props: Navbar2Props) => {
       <div className="mx-auto size-full lg:grid lg:grid-cols-[0.375fr_1fr_0.375fr] lg:items-center lg:justify-between lg:gap-">
         <div className="flex min-h-16 items-center justify-between px-[5%] md:min-h-18 lg:min-h-full lg:px-0">
           <a href={logo.url}>
-            <img src={logo.src} alt={logo.alt} className="h-16" />
+            <img src={logo.src} alt={logo.alt} className="h-18" />
           </a>
           <div className="flex items-center gap-4 lg:hidden">
             <div>
@@ -66,7 +66,7 @@ export const Navbar2 = (props: Navbar2Props) => {
 
         {/* MOBILE MENU */}
         {isMobileMenuOpen && isMobile && (
-          <div className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-lg flex flex-col items-center justify-start px-[5%] pt-20">
+          <div className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-lg flex flex-col items-center justify-start px-[8%] pt-20">
             <button
               className="absolute top-8 right-8 text-4xl text-white"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -81,8 +81,8 @@ export const Navbar2 = (props: Navbar2Props) => {
                 <a
                   key={index}
                   href={navLink.url}
-                  className="block font-bold tracking-wide py-4 text-2xl text-white border-b border-white/10 last:border-none"
-                  style={{ cursor: "default" }}
+                  className="block font-bold tracking-wide py-4 text-2xl text-white"
+                  style={{ cursor: "pointer" }}
                 >
                   {navLink.title}
                 </a>
@@ -121,7 +121,10 @@ export const Navbar2 = (props: Navbar2Props) => {
 
         <div className="hidden justify-self-end lg:block">
           {buttons.map((button, index) => (
-            <Button key={index} className="px-6 py-2" {...button}>
+            <Button 
+            key={index} 
+            className="px-6 py-2 border-2 border-white text-white bg-transparent rounded hover:bg-white hover:bg-opacity-20"
+            {...button}>
               {button.title}
             </Button>
           ))}
@@ -148,7 +151,7 @@ const SubMenu = ({ navLink, isMobile }: { navLink: NavLink; isMobile: boolean })
         }
         onClick={() => setIsDropdownOpen((prev) => !prev)}
         type="button"
-        style={{ cursor: isMobile ? "default" : "pointer" }}
+        style={{ cursor: "pointer"}}
       >
         <span>{navLink.title}</span>
         <span style={{ display: "flex", alignItems: "center" }}>
@@ -163,8 +166,8 @@ const SubMenu = ({ navLink, isMobile }: { navLink: NavLink; isMobile: boolean })
             <a
               key={index}
               href={subMenuLink.url}
-              className="block text-base py-2 text-white w-full text-center rounded"
-              style={{ cursor: "default" }}
+              className="block text-base px-2 py-2 text-white w-full text-center rounded"
+              style={{ cursor: "pointer" }}
             >
               {subMenuLink.title}
             </a>
@@ -192,7 +195,7 @@ const SubMenu = ({ navLink, isMobile }: { navLink: NavLink; isMobile: boolean })
               },
             }}
             transition={{ duration: 0.2 }}
-            className="bg-white/10 backdrop-blur-md text-white shadow-lg rounded-lg lg:absolute lg:z-50 lg:border lg:border-white/20 lg:p-2 lg:[--y-close:25%]"
+            className="bg-white/10 backdrop-blur-lg text-white shadow-lg rounded-lg lg:absolute lg:z-50 lg:border lg:border-white/20 lg:p-2 lg:[--y-close:25%]"
           >
             {navLink.subMenuLinks?.map((subMenuLink, index) => (
               <a
@@ -213,7 +216,7 @@ const SubMenu = ({ navLink, isMobile }: { navLink: NavLink; isMobile: boolean })
 export const Navbar2Defaults: Props = {
   logo: {
     url: "#",
-    src: "./src/assets/logo.png",
+    src: "./src/assets/logo1.png",
     alt: "Logo image",
   },
   navLinks: [

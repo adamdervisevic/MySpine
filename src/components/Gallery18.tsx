@@ -18,14 +18,13 @@ type ImageProps = {
 
 type Props = {
   heading: string;
-  description: string;
   images: ImageProps[];
 };
 
 export type Gallery18Props = React.ComponentPropsWithoutRef<"section"> & Partial<Props>;
 
 export const Gallery18 = (props: Gallery18Props) => {
-  const { heading, description, images } = {
+  const { heading, images } = {
     ...Gallery18Defaults,
     ...props,
   };
@@ -51,7 +50,6 @@ export const Gallery18 = (props: Gallery18Props) => {
             <h2 className="rb-5 mb-5 text-5xl font-bold md:mb-6 md:text-7xl lg:text-8xl">
               {heading}
             </h2>
-            <p className="md:text-md">{description}</p>
           </div>
           {/* for all available options: https://www.embla-carousel.com/api/options/ */}
           <Carousel
@@ -98,8 +96,8 @@ export const Gallery18 = (props: Gallery18Props) => {
 };
 
 export const Gallery18Defaults: Props = {
-  heading: "Image Gallery",
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  heading: "Malo vise o nama",
+  // description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   images: [
     {
       src: "./src/assets/1.png",
