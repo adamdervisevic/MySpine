@@ -19,17 +19,32 @@ export const Layout22 = (props: Layout22Props) => {
     ...props,
   };
   return (
-    <section id="relume" className="px-[5%] py-16 md:py-24 lg:py-28">
+    <section 
+      id="relume" 
+      className="px-[5%] py-16 md:py-24 lg:py-28 bg-gradient-to-r from-green-200 via-white to-blue-200">
       <div className="container">
         <div className="grid grid-cols-1 gap-y-12 md:grid-cols-2 md:items-center md:gap-x-12 lg:gap-x-20">
           <div>
-            <h2 className="rb-5 mb-5 text-5xl font-bold md:mb-6 md:text-7xl lg:text-8xl">
+            <h2 className="mb-6 text-5xl font-bold text-gray-800 md:mb-8 md:text-6xl lg:text-7xl leading-tight">
               {heading}
             </h2>
-            <p className="md:text-md">{description}</p>
+            <p className="mt-4 max-w-prose text-lg leading-relaxed text-gray-800">
+              {description}
+            </p>
           </div>
+
           <div>
-            <img src={image.src} className="w-full object-cover" alt={image.alt} />
+            <div className="relative">
+            <div className="absolute -inset-4 bg-blue-200 rounded-full"></div>
+            <div className="overflow-hidden relative z-10 w-full" style={{ borderRadius: "55% 45% 45% 55% / 55% 45% 55% 45%" }}>
+
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-auto object-cover"
+              />
+              </div>
+            </div>
           </div>
         </div>
       </div>

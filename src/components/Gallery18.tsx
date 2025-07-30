@@ -17,14 +17,13 @@ type ImageProps = {
 };
 
 type Props = {
-  heading: string;
   images: ImageProps[];
 };
 
 export type Gallery18Props = React.ComponentPropsWithoutRef<"section"> & Partial<Props>;
 
 export const Gallery18 = (props: Gallery18Props) => {
-  const { heading, images } = {
+  const { images } = {
     ...Gallery18Defaults,
     ...props,
   };
@@ -46,12 +45,6 @@ export const Gallery18 = (props: Gallery18Props) => {
     <section id="relume">
       <div className="px-[5%] py-16 md:py-24 lg:py-28">
         <div className="container">
-          <div className="rb-12 mb-12 text-center md:mb-18 lg:mb-20">
-            <h2 className="rb-5 mb-5 text-5xl font-bold md:mb-6 md:text-7xl lg:text-8xl">
-              {heading}
-            </h2>
-          </div>
-          {/* for all available options: https://www.embla-carousel.com/api/options/ */}
           <Carousel
             setApi={setApi}
             opts={{
@@ -63,11 +56,11 @@ export const Gallery18 = (props: Gallery18Props) => {
               <CarouselContent className="ml-0">
                 {images.map((image, index) => (
                   <CarouselItem key={index} className="basis-1/2 px-3 md:basis-1/3 md:px-4">
-                    <div className="w-full">
+                    <div className="w-full aspect-[9/13] overflow-hidden">
                       <img
                         src={image.src}
                         alt={image.alt}
-                        className="aspect-square size-full object-cover"
+                        className="w-full h-full object-cover"
                       />
                     </div>
                   </CarouselItem>
@@ -96,31 +89,29 @@ export const Gallery18 = (props: Gallery18Props) => {
 };
 
 export const Gallery18Defaults: Props = {
-  heading: "Malo vise o nama",
-  // description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   images: [
     {
-      src: "./src/assets/1.png",
+      src: "./src/assets/slika1.png",
       alt: "Relume placeholder image 1",
     },
     {
-      src: "./src/assets/2.png",
+      src: "./src/assets/slika2.png",
       alt: "Relume placeholder image 2",
     },
     {
-      src: "./src/assets/3.png",
+      src: "./src/assets/slika3.webp",
       alt: "Relume placeholder image 3",
     },
     {
-      src: "https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg",
+      src: "./src/assets/slika4.jpg",
       alt: "Relume placeholder image 4",
     },
     {
-      src: "https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg",
+      src: "./src/assets/slika5.webp",
       alt: "Relume placeholder image 5",
     },
     {
-      src: "https://d22po4pjz3o32e.cloudfront.net/placeholder-image.svg",
+      src: "./src/assets/slika6.webp",
       alt: "Relume placeholder image 6",
     },
   ],
