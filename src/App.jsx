@@ -10,22 +10,22 @@ import VideoCarousel from "./components/VideoCarousel"
 
 export default function App() {
   const myVideos = [
-    { src: "/videos/video1.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video2.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video3.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video4.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video5.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video6.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video7.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video8.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video9.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video10.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video11.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video12.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video13.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video14.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video15.mp4", poster: "/images/myspine.jpg" },
-    { src: "/videos/video16.mp4", poster: "/images/myspine.jpg" },
+    { src: "/videos/video1.mp4"},
+    { src: "/videos/video2.mp4"},
+    { src: "/videos/video3.mp4"},
+    { src: "/videos/video4.mp4"},
+    { src: "/videos/video5.mp4"},
+    { src: "/videos/video6.mp4"},
+    { src: "/videos/video7.mp4"},
+    { src: "/videos/video8.mp4"},
+    { src: "/videos/video9.mp4",},
+    { src: "/videos/video10.mp4",},
+    { src: "/videos/video11.mp4"},
+    { src: "/videos/video12.mp4"},
+    { src: "/videos/video13.mp4"},
+    { src: "/videos/video14.mp4"},
+    { src: "/videos/video15.mp4"},
+    { src: "/videos/video16.mp4"},
   ]
 
   return (
