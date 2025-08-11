@@ -199,7 +199,7 @@ const SubMenu = ({
 };
 
 export const Navbar2Defaults = {
-  logo: { url: "/", src: "./images/logo1.webp", alt: "Logo image" },
+  logo: { url: "/", src: "/images/logo1.webp", alt: "Logo image" },
   navLinks: [
     { title: "O nama", url: "/#o-nama" },
     {

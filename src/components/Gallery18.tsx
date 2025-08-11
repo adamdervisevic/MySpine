@@ -91,47 +91,47 @@ export const Gallery18 = (props: Gallery18Props) => {
 export const Gallery18Defaults: Props = {
   images: [
     {
-      src: "./images/slika1.webp",
+      src: "/images/slika1.webp",
       alt: "Relume placeholder image 1",
     },
     {
-      src: "./images/slika2.webp",
+      src: "/images/slika2.webp",
       alt: "Relume placeholder image 2",
     },
     {
-      src: "./images/slika3.webp",
+      src: "/images/slika3.webp",
       alt: "Relume placeholder image 3",
     },
     {
-      src: "./images/slika4.webp",
+      src: "/images/slika4.webp",
       alt: "Relume placeholder image 4",
     },
     {
-      src: "./images/slika5.webp",
+      src: "/images/slika5.webp",
       alt: "Relume placeholder image 5",
     },
     {
-      src: "./images/slika6.webp",
+      src: "/images/slika6.webp",
       alt: "Relume placeholder image 6",
     },
     {
-      src: "./images/slika7.webp",
+      src: "/images/slika7.webp",
       alt: "Relume placeholder image 6",
     },
     {
-      src: "./images/slika8.webp",
+      src: "/images/slika8.webp",
       alt: "Relume placeholder image 6",
     },
     {
-      src: "./images/slika9.webp",
+      src: "/images/slika9.webp",
       alt: "Relume placeholder image 6",
     },
     {
-      src: "./images/slika10.webp",
+      src: "/images/slika10.webp",
       alt: "Relume placeholder image 6",
     },
     {
-      src: "./images/slika11.webp",
+      src: "/images/slika11.webp",
       alt: "Relume placeholder image 6",
     },
   ],

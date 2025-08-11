@@ -28,7 +28,15 @@ export const Header7 = (props: Header7Props) => {
         </div>
       </div>
       <div className="absolute inset-0 z-0">
-        <video className="absolute inset-0 aspect-video size-full object-cover" autoPlay loop muted playsInline>
+        <video 
+          className="absolute inset-0 aspect-video size-full object-cover" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          preload="metadata"
+          poster="/images/hero-poster.jpg"
+          >
           <source src={video} type={videoType} />
         </video>
         <div className="absolute inset-0 bg-black/50" />
