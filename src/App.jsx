@@ -5,7 +5,7 @@ import { Header7 } from "./components/Header7"
 import { Layout22 } from "./components/Layout22"
 import { Gallery18 } from "./components/Gallery18"
 import { Testimonial19 } from "./components/Testimonial19"
-import { Footer4 } from "./components/Footer4"
+import KontaktFooter from "./components/KontaktFooter"
 import VideoCarousel from "./components/VideoCarousel"
 
 export default function App() {
@@ -36,7 +36,7 @@ export default function App() {
       <Gallery18/>
       <VideoCarousel slides={myVideos}/>
       <Testimonial19/>
-      <Footer4/>
+      <KontaktFooter />
     </>
   )
 }
