@@ -1,7 +1,7 @@
 import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 const KontaktFooter = () => (
-  <section className="p-5 bg-white border-t">
+  <section id="kontakt" className="p-5 bg-white border-t">
     <hr className="my-5 border-gray-200" />
     <div className="container mx-auto">
       <div className="flex flex-col lg:flex-row gap-10">
