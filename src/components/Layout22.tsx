@@ -39,7 +39,7 @@ export const Layout22Defaults: Props = {
   heading: "O nama",
   description:
     "Naša ordinacija posvećena je pružanju visoko kvalitetne nege i rehabilitacije pacijentima. Stručni tim, predvođen iskusnim visokostrukovnim fizioterapeutom, koristi najnovije metode i tehnike u terapiji. Naša misija je da vam pomognemo da povratite mobilnost i poboljšate kvalitet života, pružajući individualni pristup i tretmane prilagođene vašim potrebama. Verujemo u holistički pristup nezi, gde svaki pacijent dobija sveobuhvatnu, prilagođenu terapiju koja obezbeđuje optimalni oporavak.",
-  image: { src: "./src/assets/Stefan.png", alt: "Relume placeholder image" },
+  image: { src: "./images/Stefan.webp", alt: "Relume placeholder image" },
 };
 
 export default Layout22;

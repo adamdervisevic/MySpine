@@ -21,12 +21,12 @@ import CenovnikPage from "./pages/CenovnikPage.tsx";
 
 function Home() {
   const myVideos = [
-    { src: "/videos/video1.mp4" }, { src: "/videos/video2.mp4" }, { src: "/videos/video3.mp4" },
-    { src: "/videos/video4.mp4" }, { src: "/videos/video5.mp4" }, { src: "/videos/video6.mp4" },
-    { src: "/videos/video7.mp4" }, { src: "/videos/video8.mp4" }, { src: "/videos/video9.mp4" },
-    { src: "/videos/video10.mp4" }, { src: "/videos/video11.mp4" }, { src: "/videos/video12.mp4" },
-    { src: "/videos/video13.mp4" }, { src: "/videos/video14.mp4" }, { src: "/videos/video15.mp4" },
-    { src: "/videos/video16.mp4" },
+    { src: "/videos/video1.webm" }, { src: "/videos/video2.webm" }, { src: "/videos/video3.webm" },
+    { src: "/videos/video4.webm" }, { src: "/videos/video5.webm" }, { src: "/videos/video6.webm" },
+    { src: "/videos/video7.webm" }, { src: "/videos/video8.webm" }, { src: "/videos/video9.webm" },
+    { src: "/videos/video10.webm" }, { src: "/videos/video11.webm" }, { src: "/videos/video12.webm" },
+    { src: "/videos/video13.webm" }, { src: "/videos/video14.webm" }, { src: "/videos/video15.webm" },
+    { src: "/videos/video16.webm" },
   ];
   return (
     <>
@@ -55,12 +55,10 @@ export default function App() {
         <Route path="/masaze" element={<MasazePage />} />
         <Route path="/tecar" element={<TecarTerapijaPage />} />
         <Route path="/spinalna-dekompresija" element={<SpinalnaDekompresijaPage />} />
-
-        {/* stari linkovi ako negde postoje */}
         <Route path="/usluge" element={<Navigate to="/pregled" replace />} />
         <Route path="/usluge/fizioterapeutski-pregled" element={<Navigate to="/pregled" replace />} />
         <Route path="/usluge/fizikalna-terapija" element={<Navigate to="/terapija" replace />} />
-        <Route path="/cenovnik" element={<CenovnikPage />} />
+        <Route path="/cenovnik" element={<CenovnikPage to="/cenovnik" replace />} />
 
       </Routes>
     </BrowserRouter>

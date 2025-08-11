@@ -28,7 +28,7 @@ export const Header7 = (props: Header7Props) => {
         </div>
       </div>
       <div className="absolute inset-0 z-0">
-        <video className="absolute inset-0 aspect-video size-full object-cover" autoPlay loop muted>
+        <video className="absolute inset-0 aspect-video size-full object-cover" autoPlay loop muted playsInline>
           <source src={video} type={videoType} />
         </video>
         <div className="absolute inset-0 bg-black/50" />
@@ -41,6 +41,6 @@ export const Header7Defaults: Props = {
   heading: "Povratite mobilnost i poboljšajte kvalitet života",
   description:
     "Pružamo pomoć pacijentima svih starosnih doba kojima je potrebna rehabilitacija, oporavak od povreda ili hroničnih bolova uz pomoć različith vrsta terapije.",
-  video: "./src/assets/5.mp4",
-  videoType: "video/mp4",
+  video: "/videos/hero.webm",
+  videoType: "video/webm",
 };

@@ -199,7 +199,7 @@ const SubMenu = ({
 };
 
 export const Navbar2Defaults = {
-  logo: { url: "/", src: "./src/assets/logo1.png", alt: "Logo image" },
+  logo: { url: "/", src: "./images/logo1.webp", alt: "Logo image" },
   navLinks: [
     { title: "O nama", url: "/#o-nama" },
     {
@@ -215,7 +215,7 @@ export const Navbar2Defaults = {
         { title: "Spinalna dekompresiona terapija", url: "/spinalna-dekompresija", target: "_blank" },
       ],
     },
-    { title: "Cenovnik", url: "/cenovnik" },
+    { title: "Cenovnik", url: "/cenovnik", target: "_blank" },
     { title: "Kontakt", url: "/#kontakt" },
   ],
   buttons: [{ title: "Zakazi termin", size: "sm" }],
