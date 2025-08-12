@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import { Navbar2 } from "./components/Navbar2";
 import { Header7 } from "./components/Header7";
@@ -9,6 +9,7 @@ import { Testimonial19 } from "./components/Testimonial19";
 import KontaktFooter from "./components/KontaktFooter";
 import VideoCarousel from "./components/VideoCarousel";
 
+// Stranice
 import FizioterapeutskiPregledPage from "./pages/FizioterapeutskiPregledPage.tsx";
 import FizikalnaTerapijaPage from "./pages/FizikalnaTerapijaPage.tsx";
 import DryNeedlingPage from "./pages/DryNeedlingPage.tsx";
@@ -18,16 +19,34 @@ import TecarTerapijaPage from "./pages/TecarTerapijaPage.tsx";
 import SpinalnaDekompresijaPage from "./pages/SpinalnaDekompresijaPage.tsx";
 import CenovnikPage from "./pages/CenovnikPage.tsx";
 
+// Navbar transparent samo na / ruti
+function NavbarWrapper() {
+  const { pathname } = useLocation();
+  const transparent = pathname === "/";
+  return <Navbar2 transparent={transparent} />;
+}
 
 function Home() {
+  // KORISTI KOMpresovane fajlove (sa sufiksom -720) i putanju /videos/compressed
   const myVideos = [
-    { src: "/videos/video1.webm" }, { src: "/videos/video2.webm" }, { src: "/videos/video3.webm" },
-    { src: "/videos/video4.webm" }, { src: "/videos/video5.webm" }, { src: "/videos/video6.webm" },
-    { src: "/videos/video7.webm" }, { src: "/videos/video8.webm" }, { src: "/videos/video9.webm" },
-    { src: "/videos/video10.webm" }, { src: "/videos/video11.webm" }, { src: "/videos/video12.webm" },
-    { src: "/videos/video13.webm" }, { src: "/videos/video14.webm" }, { src: "/videos/video15.webm" },
-    { src: "/videos/video16.webm" },
+    { src: "/videos/compressed/video1-720.webm" },
+    { src: "/videos/compressed/video2-720.webm" },
+    { src: "/videos/compressed/video3-720.webm" },
+    { src: "/videos/compressed/video4-720.webm" },
+    { src: "/videos/compressed/video5-720.webm" },
+    { src: "/videos/compressed/video6-720.webm" },
+    { src: "/videos/compressed/video7-720.webm" },
+    { src: "/videos/compressed/video8-720.webm" },
+    { src: "/videos/compressed/video9-720.webm" },
+    { src: "/videos/compressed/video10-720.webm" },
+    { src: "/videos/compressed/video11-720.webm" },
+    { src: "/videos/compressed/video12-720.webm" },
+    { src: "/videos/compressed/video13-720.webm" },
+    { src: "/videos/compressed/video14-720.webm" },
+    { src: "/videos/compressed/video15-720.webm" },
+    { src: "/videos/compressed/video16-720.webm" },
   ];
+
   return (
     <>
       <Header7 />
@@ -43,11 +62,11 @@ function Home() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Navbar2 />
+      <NavbarWrapper />
+
       <Routes>
         <Route path="/" element={<Home />} />
-
-        {/* Usluge / stranice */}
+        {/* Usluge */}
         <Route path="/pregled" element={<FizioterapeutskiPregledPage />} />
         <Route path="/terapija" element={<FizikalnaTerapijaPage />} />
         <Route path="/dry-needling" element={<DryNeedlingPage />} />
@@ -55,11 +74,12 @@ export default function App() {
         <Route path="/masaze" element={<MasazePage />} />
         <Route path="/tecar" element={<TecarTerapijaPage />} />
         <Route path="/spinalna-dekompresija" element={<SpinalnaDekompresijaPage />} />
+        {/* Redirect staze ako su ti bile stare putanje */}
         <Route path="/usluge" element={<Navigate to="/pregled" replace />} />
         <Route path="/usluge/fizioterapeutski-pregled" element={<Navigate to="/pregled" replace />} />
         <Route path="/usluge/fizikalna-terapija" element={<Navigate to="/terapija" replace />} />
-        <Route path="/cenovnik" element={<CenovnikPage to="/cenovnik" replace />} />
-
+        {/* Cenovnik */}
+        <Route path="/cenovnik" element={<CenovnikPage />} />
       </Routes>
     </BrowserRouter>
   );
