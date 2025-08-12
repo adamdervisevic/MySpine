@@ -53,10 +53,13 @@ export const Gallery18 = (props: Gallery18Props) => {
             }}
           >
             <div className="w-full max-w-4xl mx-auto overflow-hidden">
-              <CarouselContent className="ml-0">
+              <CarouselContent className="-ml-3 md:-ml-4">
                 {images.map((image, index) => (
-                  <CarouselItem key={index} className="basis-1/2 px-3 md:basis-1/3 md:px-4">
-                    <div className="w-full aspect-[9/13] overflow-hidden">
+                  <CarouselItem
+                    key={index}
+                    className="basis-full px-3 sm:basis-1/1 md:basis-1/2 lg:basis-1/3 md:px-4"
+                  >
+                    <div className="w-full aspect-[4/5] overflow-hidden">
                       <img
                         src={image.src}
                         alt={image.alt}
@@ -66,6 +69,7 @@ export const Gallery18 = (props: Gallery18Props) => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
+
               <CarouselPrevious className="hidden md:flex md:size-12 lg:size-14" />
               <CarouselNext className="hidden md:flex md:size-12 lg:size-14" />
             </div>
@@ -116,23 +120,23 @@ export const Gallery18Defaults: Props = {
     },
     {
       src: "/images/slika7.webp",
-      alt: "Relume placeholder image 6",
+      alt: "Relume placeholder image 7",
     },
     {
       src: "/images/slika8.webp",
-      alt: "Relume placeholder image 6",
+      alt: "Relume placeholder image 8",
     },
     {
       src: "/images/slika9.webp",
-      alt: "Relume placeholder image 6",
+      alt: "Relume placeholder image 9",
     },
     {
       src: "/images/slika10.webp",
-      alt: "Relume placeholder image 6",
+      alt: "Relume placeholder image 10",
     },
     {
       src: "/images/slika11.webp",
-      alt: "Relume placeholder image 6",
+      alt: "Relume placeholder image 11",
     },
   ],
 };

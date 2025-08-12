@@ -55,7 +55,7 @@ export default function VideoCarousel({
             {slides.map((slide, idx) => (
               <div key={idx} className="flex-shrink-0 w-full">
                 <div
-                  className="relative w-full pb-[56.25%] bg-black"
+                  className="relative w-full h-[70vh] sm:pb-[56.25%] sm:h-auto bg-black"
                   data-slide-wrap
                 >
                   <video

@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "@relume_io/relume-ui";
 
 type Props = {
@@ -17,20 +16,7 @@ export const Header7 = (props: Header7Props) => {
     ...props,
   };
 
-  // Desktop = autoplay pozadinski video
-  // Mobile = poster + PLAY dugme; na klik prikazujemo video sa kontrolama
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-
-  useEffect(() => {
-    if (isPlaying && videoRef.current) {
-      // user gesture je odradio klik, pa je play dozvoljen i sa zvukom
-      videoRef.current.play().catch(() => {});
-    }
-  }, [isPlaying]);
-
-  const handlePlayClick = () => setIsPlaying(true);
 
   return (
     <section id="relume" className="relative px-[5%]">
@@ -46,60 +32,24 @@ export const Header7 = (props: Header7Props) => {
         </div>
       </div>
 
-      {/* Pozadina (video ili poster) */}
+      {/* Pozadinski video - autoplay na svim uređajima */}
       <div className="absolute inset-0 z-0">
-        {isDesktop ? (
-          // DESKTOP: autoplay pozadinski video
-          <video
-            className="absolute inset-0 aspect-video size-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            poster={poster}
-          >
-            <source src={videoWebm} type="video/webm" />
-            {videoMp4 ? <source src={videoMp4} type="video/mp4" /> : null}
-          </video>
-        ) : isPlaying ? (
-          // MOBILE posle klika: pravi video sa kontrolama
-          <video
-            ref={videoRef}
-            className="absolute inset-0 aspect-video size-full object-cover"
-            controls
-            playsInline
-            preload="metadata"
-            poster={poster}
-          >
-            <source src={videoWebm} type="video/webm" />
-            {videoMp4 ? <source src={videoMp4} type="video/mp4" /> : null}
-          </video>
-        ) : (
-          // MOBILE pre klika: poster (slika)
-          <img
-            src={poster}
-            alt=""
-            className="absolute inset-0 size-full object-cover"
-            loading="eager"
-            decoding="sync"
-          />
-        )}
-
-        {/* Tamni overlay – malo svetliji kad video svira na mobilnom */}
-        <div className={`absolute inset-0 ${isDesktop ? "bg-black/50" : isPlaying ? "bg-black/20" : "bg-black/50"}`} />
-      </div>
-
-      {/* PLAY dugme – samo na mobilnom i dok video ne svira */}
-      {!isDesktop && !isPlaying && (
-        <button
-          onClick={handlePlayClick}
-          aria-label="Pusti video"
-          className="md:hidden absolute bottom-6 right-6 z-20 rounded-full bg-white/90 backdrop-blur px-5 py-3 shadow-lg border border-white/60 active:scale-95"
+        <video
+          className="absolute inset-0 aspect-video size-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          poster={poster}
         >
-          ▶ Pusti video
-        </button>
-      )}
+          <source src={videoWebm} type="video/webm" />
+          {videoMp4 ? <source src={videoMp4} type="video/mp4" /> : null}
+        </video>
+
+        {/* Tamni overlay */}
+        <div className="absolute inset-0 bg-black/50" />
+      </div>
     </section>
   );
 };
