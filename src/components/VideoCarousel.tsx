@@ -66,7 +66,7 @@ export default function VideoCarousel({
                     src={slide.src}
                     poster={slide.poster}
                     controls
-                    preload="auto"
+                    preload="metadata"
                     className="absolute top-0 left-0 w-full h-full object-contain bg-black"
                     onError={(e) => {
                       console.error('Video load error:', slide.src)

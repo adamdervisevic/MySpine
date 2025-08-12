@@ -35,7 +35,6 @@ export const Header7 = (props: Header7Props) => {
           muted 
           playsInline
           preload="metadata"
-          poster="/images/hero-poster.jpg"
           >
           <source src={video} type={videoType} />
         </video>
