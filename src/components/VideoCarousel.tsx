@@ -6,8 +6,8 @@ import type { EmblaOptionsType } from 'embla-carousel';
 import { RxChevronLeft, RxChevronRight } from 'react-icons/rx';
 
 export type VideoSlide = {
-  src: string;          // npr. /videos/compressed/video1-720.webm
-  fallback?: string;    // npr. /videos/video1.webm ili /videos/video1-720.mp4
+  src: string;          
+  fallback?: string;    
   poster?: string;
 };
 

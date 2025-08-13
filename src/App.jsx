@@ -27,24 +27,23 @@ function NavbarWrapper() {
 }
 
 function Home() {
-  // KORISTI KOMpresovane fajlove (sa sufiksom -720) i putanju /videos/compressed
   const myVideos = [
-    { src: "/videos/compressed/video1-720.webm" },
-    { src: "/videos/compressed/video2-720.webm" },
-    { src: "/videos/compressed/video3-720.webm" },
-    { src: "/videos/compressed/video4-720.webm" },
-    { src: "/videos/compressed/video5-720.webm" },
-    { src: "/videos/compressed/video6-720.webm" },
-    { src: "/videos/compressed/video7-720.webm" },
-    { src: "/videos/compressed/video8-720.webm" },
-    { src: "/videos/compressed/video9-720.webm" },
-    { src: "/videos/compressed/video10-720.webm" },
-    { src: "/videos/compressed/video11-720.webm" },
-    { src: "/videos/compressed/video12-720.webm" },
-    { src: "/videos/compressed/video13-720.webm" },
-    { src: "/videos/compressed/video14-720.webm" },
-    { src: "/videos/compressed/video15-720.webm" },
-    { src: "/videos/compressed/video16-720.webm" },
+    { src: "/videos/video1-720.webm" },
+    { src: "/videos/video2-720.webm" },
+    { src: "/videos/video3-720.webm" },
+    { src: "/videos/video4-720.webm" },
+    { src: "/videos/video5-720.webm" },
+    { src: "/videos/video6-720.webm" },
+    { src: "/videos/video7-720.webm" },
+    { src: "/videos/video8-720.webm" },
+    { src: "/videos/video9-720.webm" },
+    { src: "/videos/video10-720.webm" },
+    { src: "/videos/video11-720.webm" },
+    { src: "/videos/video12-720.webm" },
+    { src: "/videos/video13-720.webm" },
+    { src: "/videos/video14-720.webm" },
+    { src: "/videos/video15-720.webm" },
+    { src: "/videos/video16-720.webm" },
   ];
 
   return (
