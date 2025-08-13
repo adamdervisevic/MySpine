@@ -1,5 +1,6 @@
 // src/components/Navbar2.tsx
 "use client";
+
 import { useState } from "react";
 import { Button, useMediaQuery } from "@relume_io/relume-ui";
 import type { ButtonProps } from "@relume_io/relume-ui";
@@ -7,6 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { RxChevronDown } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import clsx from "clsx";
 
 type ImageProps = { url?: string; src: string; alt?: string };
 type NavLink = {
@@ -16,9 +18,14 @@ type NavLink = {
   subMenuLinks?: NavLink[];
 };
 type Props = { logo: ImageProps; navLinks: NavLink[]; buttons: ButtonProps[] };
-export type Navbar2Props = React.ComponentPropsWithoutRef<"section"> & Partial<Props>;
 
-// ⇩⇩⇩ KLJUČ: za _blank koristimo <a> umesto <Link>
+export type Navbar2Props = React.ComponentPropsWithoutRef<"section"> &
+  Partial<Props> & {
+    /** true = providan i beli tekst (home preko videa), false = bela pozadina i tamni tekst */
+    transparent?: boolean;
+  };
+
+// Za _blank koristimo <a>, za hash # koristimo HashLink, ostalo je React Router <Link>
 const SmartLink = ({
   to,
   className,
@@ -51,38 +58,74 @@ const SmartLink = ({
 };
 
 export const Navbar2 = (props: Navbar2Props) => {
-  const { logo, navLinks, buttons } = { ...Navbar2Defaults, ...props };
+  const { logo, navLinks, buttons, transparent = false } = { ...Navbar2Defaults, ...props };
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 991px)");
 
+  // Tema po stranici
+  const textCls = transparent ? "text-white" : "text-gray-900";
+  const borderCls = transparent ? "border-white" : "border-gray-900";
+  const burgerCls = transparent ? "bg-white" : "bg-gray-900";
+  const barBgCls = transparent
+    ? "bg-transparent"
+    : "bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 shadow-sm";
+
+  // Desktop dropdown pozadina
+  const dropdownCls = transparent
+    ? "bg-white/10 backdrop-blur-lg text-white lg:border lg:border-white/20 lg:p-2"
+    : "bg-white shadow-lg text-gray-900 lg:border lg:border-gray-200 lg:p-2";
+
   return (
-    <section id="relume" className="absolute top-0 left-0 z-[999] flex w-full items-center bg-transparent lg:min-h-18 lg:px-[5%]">
+    <section
+      id="relume"
+      className={clsx(
+        "absolute top-0 left-0 z-[999] flex w-full items-center lg:min-h-18 lg:px-[5%] transition-colors",
+        barBgCls
+      )}
+    >
       <div className="mx-auto size-full lg:grid lg:grid-cols-[0.375fr_1fr_0.375fr] lg:items-center lg:justify-between">
         <div className="flex min-h-16 items-center justify-between px-[5%] md:min-h-18 lg:min-h-full lg:px-0">
           <SmartLink to={logo.url || "/"}>
             <img src={logo.src} alt={logo.alt} className="h-18" />
           </SmartLink>
 
+          {/* Mobile actions */}
           <div className="flex items-center gap-4 lg:hidden">
             <div>
               {buttons.map((button, index) => (
-                <Button key={index} className="w-full px-6 py-2 border-2 border-white text-white bg-transparent rounded hover:bg-white hover:bg-opacity-20" {...button}>
+                <Button
+                  key={index}
+                  className={clsx(
+                    "w-full px-6 py-2 border-2 bg-transparent rounded hover:bg-black/5",
+                    borderCls,
+                    textCls
+                  )}
+                  {...button}
+                >
                   {button.title}
                 </Button>
               ))}
             </div>
-            <button className="-mr-2 flex size-12 flex-col items-center justify-center" onClick={() => setIsMobileMenuOpen((p) => !p)} aria-label="Otvori meni">
-              <span className="my-[3px] h-0.5 w-6 bg-white" />
-              <span className="my-[3px] h-0.5 w-6 bg-white" />
-              <span className="my-[3px] h-0.5 w-6 bg-white" />
+            <button
+              className="-mr-2 flex size-12 flex-col items-center justify-center"
+              onClick={() => setIsMobileMenuOpen((p) => !p)}
+              aria-label="Otvori meni"
+            >
+              <span className={clsx("my-[3px] h-0.5 w-6", burgerCls)} />
+              <span className={clsx("my-[3px] h-0.5 w-6", burgerCls)} />
+              <span className={clsx("my-[3px] h-0.5 w-6", burgerCls)} />
             </button>
           </div>
         </div>
 
-        {/* MOBILE */}
+        {/* MOBILE overlay meni */}
         {isMobileMenuOpen && isMobile && (
           <div className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-lg flex flex-col items-center justify-start px-[8%] pt-20">
-            <button className="absolute top-8 right-8 text-4xl text-white" onClick={() => setIsMobileMenuOpen(false)} aria-label="Zatvori meni">
+            <button
+              className="absolute top-8 right-8 text-4xl text-white"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Zatvori meni"
+            >
               &times;
             </button>
             {navLinks.map((navLink, index) =>
@@ -103,7 +146,7 @@ export const Navbar2 = (props: Navbar2Props) => {
           </div>
         )}
 
-        {/* DESKTOP */}
+        {/* DESKTOP meni */}
         {!isMobile && (
           <motion.div
             variants={{ open: { height: "var(--height-open, 100dvh)" }, close: { height: "var(--height-closed, 0)" } }}
@@ -114,9 +157,14 @@ export const Navbar2 = (props: Navbar2Props) => {
           >
             {navLinks.map((navLink, index) =>
               navLink.subMenuLinks?.length ? (
-                <SubMenu key={index} navLink={navLink} isMobile={false} />
+                <SubMenu key={index} navLink={navLink} isMobile={false} textCls={textCls} dropdownCls={dropdownCls} />
               ) : (
-                <SmartLink key={index} to={navLink.url} target={navLink.target} className="block font-medium tracking-wide px-5 py-2 text-[22px] text-white">
+                <SmartLink
+                  key={index}
+                  to={navLink.url}
+                  target={navLink.target}
+                  className={clsx("block font-medium tracking-wide px-5 py-2 text-[22px]", textCls)}
+                >
                   {navLink.title}
                 </SmartLink>
               )
@@ -124,9 +172,18 @@ export const Navbar2 = (props: Navbar2Props) => {
           </motion.div>
         )}
 
+        {/* DESKTOP CTA dugme */}
         <div className="hidden justify-self-end lg:block">
           {buttons.map((button, index) => (
-            <Button key={index} className="px-6 py-2 border-2 border-white text-white bg-transparent rounded hover:bg-white hover:bg-opacity-20" {...button}>
+            <Button
+              key={index}
+              className={clsx(
+                "px-6 py-2 border-2 bg-transparent rounded hover:bg-black/5",
+                borderCls,
+                textCls
+              )}
+              {...button}
+            >
               {button.title}
             </Button>
           ))}
@@ -140,10 +197,14 @@ const SubMenu = ({
   navLink,
   isMobile,
   onNavigate,
+  textCls = "text-gray-900",
+  dropdownCls = "bg-white shadow-lg text-gray-900 lg:border lg:border-gray-200 lg:p-2",
 }: {
   navLink: NavLink;
   isMobile: boolean;
   onNavigate?: () => void;
+  textCls?: string;
+  dropdownCls?: string;
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -153,7 +214,7 @@ const SubMenu = ({
         className={
           isMobile
             ? "w-full font-bold text-2xl py-4 text-white flex items-center justify-center gap-2 border-b border-white/10 last:border-none"
-            : "flex items-center gap-2 py-3 text-center text-md lg:w-auto lg:justify-start lg:gap-2 lg:px-4 lg:py-2 lg:text-lg text-white"
+            : clsx("flex items-center gap-2 py-3 text-center text-md lg:w-auto lg:justify-start lg:gap-2 lg:px-4 lg:py-2 lg:text-lg", textCls)
         }
         onClick={() => setIsDropdownOpen((p) => !p)}
         type="button"
@@ -168,7 +229,13 @@ const SubMenu = ({
       {isDropdownOpen && isMobile && (
         <div className="w-full flex flex-col items-center bg-white/10 backdrop-blur-md rounded-lg shadow mb-2">
           {navLink.subMenuLinks?.map((subMenuLink, i) => (
-            <SmartLink key={i} to={subMenuLink.url} target={subMenuLink.target} onClick={onNavigate} className="block text-base px-2 py-2 text-white w-full text-center rounded">
+            <SmartLink
+              key={i}
+              to={subMenuLink.url}
+              target={subMenuLink.target}
+              onClick={onNavigate}
+              className="block text-base px-2 py-2 text-white w-full text-center rounded"
+            >
               {subMenuLink.title}
             </SmartLink>
           ))}
@@ -184,7 +251,7 @@ const SubMenu = ({
             exit="close"
             variants={{ open: { visibility: "visible", opacity: 1, y: 0 }, close: { visibility: "hidden", opacity: 0, y: "25%" } }}
             transition={{ duration: 0.2 }}
-            className="bg-white/10 backdrop-blur-lg text-white shadow-lg rounded-lg lg:absolute lg:z-50 lg:border lg:border-white/20 lg:p-2"
+            className={clsx("rounded-lg lg:absolute lg:z-50", dropdownCls)}
           >
             {navLink.subMenuLinks?.map((subMenuLink, i) => (
               <SmartLink key={i} to={subMenuLink.url} target={subMenuLink.target} className="block py-3 text-center lg:px-4 lg:py-2 lg:text-left">

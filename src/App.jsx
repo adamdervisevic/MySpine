@@ -1,3 +1,4 @@
+// src/App.jsx
 import React from "react";
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 
@@ -19,7 +20,7 @@ import TecarTerapijaPage from "./pages/TecarTerapijaPage.tsx";
 import SpinalnaDekompresijaPage from "./pages/SpinalnaDekompresijaPage.tsx";
 import CenovnikPage from "./pages/CenovnikPage.tsx";
 
-// Navbar transparent samo na / ruti
+// Navbar transparent samo na /
 function NavbarWrapper() {
   const { pathname } = useLocation();
   const transparent = pathname === "/";
@@ -28,22 +29,22 @@ function NavbarWrapper() {
 
 function Home() {
   const myVideos = [
-    { src: "/videos/video1-720.webm" },
-    { src: "/videos/video2-720.webm" },
-    { src: "/videos/video3-720.webm" },
-    { src: "/videos/video4-720.webm" },
-    { src: "/videos/video5-720.webm" },
-    { src: "/videos/video6-720.webm" },
-    { src: "/videos/video7-720.webm" },
-    { src: "/videos/video8-720.webm" },
-    { src: "/videos/video9-720.webm" },
-    { src: "/videos/video10-720.webm" },
-    { src: "/videos/video11-720.webm" },
-    { src: "/videos/video12-720.webm" },
-    { src: "/videos/video13-720.webm" },
-    { src: "/videos/video14-720.webm" },
-    { src: "/videos/video15-720.webm" },
-    { src: "/videos/video16-720.webm" },
+    { src: "/videos/compressed/video1-720.webm" },
+    { src: "/videos/compressed/video2-720.webm" },
+    { src: "/videos/compressed/video3-720.webm" },
+    { src: "/videos/compressed/video4-720.webm" },
+    { src: "/videos/compressed/video5-720.webm" },
+    { src: "/videos/compressed/video6-720.webm" },
+    { src: "/videos/compressed/video7-720.webm" },
+    { src: "/videos/compressed/video8-720.webm" },
+    { src: "/videos/compressed/video9-720.webm" },
+    { src: "/videos/compressed/video10-720.webm" },
+    { src: "/videos/compressed/video11-720.webm" },
+    { src: "/videos/compressed/video12-720.webm" },
+    { src: "/videos/compressed/video13-720.webm" },
+    { src: "/videos/compressed/video14-720.webm" },
+    { src: "/videos/compressed/video15-720.webm" },
+    { src: "/videos/compressed/video16-720.webm" },
   ];
 
   return (
@@ -65,6 +66,7 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+
         {/* Usluge */}
         <Route path="/pregled" element={<FizioterapeutskiPregledPage />} />
         <Route path="/terapija" element={<FizikalnaTerapijaPage />} />
@@ -73,10 +75,12 @@ export default function App() {
         <Route path="/masaze" element={<MasazePage />} />
         <Route path="/tecar" element={<TecarTerapijaPage />} />
         <Route path="/spinalna-dekompresija" element={<SpinalnaDekompresijaPage />} />
-        {/* Redirect staze ako su ti bile stare putanje */}
+
+        {/* Redirect stare putanje (ako postoje) */}
         <Route path="/usluge" element={<Navigate to="/pregled" replace />} />
         <Route path="/usluge/fizioterapeutski-pregled" element={<Navigate to="/pregled" replace />} />
         <Route path="/usluge/fizikalna-terapija" element={<Navigate to="/terapija" replace />} />
+
         {/* Cenovnik */}
         <Route path="/cenovnik" element={<CenovnikPage />} />
       </Routes>
