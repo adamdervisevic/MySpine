@@ -58,7 +58,6 @@ export const Header7Defaults: Props = {
   heading: "Povratite mobilnost i poboljšajte kvalitet života",
   description:
     "Pružamo pomoć pacijentima svih starosnih doba kojima je potrebna rehabilitacija, oporavak od povreda ili hroničnih bolova uz pomoć različith vrsta terapije.",
-  // koristi kompresovane fajlove u public/videos/compressed
   videoWebm: "/videos/hero-720.webm",
   // videoMp4: "/videos/hero-720.mp4", // ako nemaš mp4, obriši ovu liniju i <source type='video/mp4' />
   poster: "/images/hero-poster.webp",
