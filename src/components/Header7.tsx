@@ -1,22 +1,48 @@
 import { useMediaQuery } from "@relume_io/relume-ui";
+import { useEffect, useRef } from "react";
 
 type Props = {
   heading: string;
   description: string;
   videoWebm: string;
-  videoMp4?: string;
-  poster: string;
+  videoMp4: string;
 };
 
 export type Header7Props = React.ComponentPropsWithoutRef<"section"> & Partial<Props>;
 
 export const Header7 = (props: Header7Props) => {
-  const { heading, description, videoWebm, videoMp4, poster } = {
+  const { heading, description, videoWebm, videoMp4 } = {
     ...Header7Defaults,
     ...props,
   };
 
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Forsira play na iOS uređajima
+    const video = videoRef.current;
+    if (video) {
+      video.muted = true;
+      
+      const attemptPlay = () => {
+        video.play().catch(error => {
+          console.log("Autoplay sprečen:", error);
+        });
+      };
+
+      video.addEventListener('canplay', attemptPlay);
+      video.addEventListener('loadeddata', attemptPlay);
+      
+      // Pokušaj odmah
+      attemptPlay();
+
+      return () => {
+        video.removeEventListener('canplay', attemptPlay);
+        video.removeEventListener('loadeddata', attemptPlay);
+      };
+    }
+  }, []);
 
   return (
     <section id="relume" className="relative px-[5%]">
@@ -32,19 +58,24 @@ export const Header7 = (props: Header7Props) => {
         </div>
       </div>
 
-      {/* Pozadinski video - autoplay na svim uređajima */}
+      {/* Pozadinski video - LOKALNI FAJLOVI */}
       <div className="absolute inset-0 z-0">
         <video
+          ref={videoRef}
           className="absolute inset-0 aspect-video size-full object-cover"
           autoPlay
           loop
           muted
           playsInline
-          preload="metadata"
-          poster={poster}
+          webkit-playsinline="true"
+          preload="auto"
         >
+          {/* MP4 prvi za iOS kompatibilnost */}
+          <source src={videoMp4} type="video/mp4" />
+          {/* WebM za moderne browsere */}
           <source src={videoWebm} type="video/webm" />
-          {videoMp4 ? <source src={videoMp4} type="video/mp4" /> : null}
+          
+          Vaš browser ne podržava video tag.
         </video>
 
         {/* Tamni overlay */}
@@ -58,9 +89,10 @@ export const Header7Defaults: Props = {
   heading: "Povratite mobilnost i poboljšajte kvalitet života",
   description:
     "Pružamo pomoć pacijentima svih starosnih doba kojima je potrebna rehabilitacija, oporavak od povreda ili hroničnih bolova uz pomoć različith vrsta terapije.",
-  videoWebm: "/videos/hero-720.webm",
-  // videoMp4: "/videos/hero-720.mp4", // ako nemaš mp4, obriši ovu liniju i <source type='video/mp4' />
-  poster: "/images/hero-poster.webp",
+  
+  // TVOJI LOKALNI VIDEO FAJLOVI
+  videoWebm: "/videos/hero.webm",  // Tvoj WebM video
+  videoMp4: "/videos/hero.mp4",    // Tvoj MP4 video za iOS
 };
 
 export default Header7;
