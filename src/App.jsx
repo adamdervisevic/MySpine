@@ -29,22 +29,16 @@ function NavbarWrapper() {
 
 function Home() {
   const myVideos = [
-    { src: "/videos/video1-720.webm" },
-    { src: "/videos/video2-720.webm" },
-    { src: "/videos/video3-720.webm" },
-    { src: "/videos/video4-720.webm" },
-    { src: "/videos/video5-720.webm" },
-    { src: "/videos/video6-720.webm" },
-    { src: "/videos/video7-720.webm" },
-    { src: "/videos/video8-720.webm" },
-    { src: "/videos/video9-720.webm" },
-    { src: "/videos/video10-720.webm" },
-    { src: "/videos/video11-720.webm" },
-    { src: "/videos/video12-720.webm" },
-    { src: "/videos/video13-720.webm" },
-    { src: "/videos/video14-720.webm" },
-    { src: "/videos/video15-720.webm" },
-    { src: "/videos/video16-720.webm" },
+    // YouTube Shorts videi sa tvojeg kanala
+    { type: 'youtube', src: 'rSSHdaNW4z8', title: 'Fizioterapeutska vežba 1' },
+    { type: 'youtube', src: 'VAnH0tmqGE0', title: 'Fizioterapeutska vežba 2' },
+    { type: 'youtube', src: 'NPCJdSezn2s', title: 'Fizioterapeutska vežba 3' },
+    { type: 'youtube', src: 'nt3ILsjtR0k', title: 'Fizioterapeutska vežba 4' },
+    { type: 'youtube', src: 'aR6bRZsRo80', title: 'Fizioterapeutska vežba 5' },
+    { type: 'youtube', src: 'HK-mbgil1fs', title: 'Fizioterapeutska vežba 6' },
+    
+    // Dodaj još videa ako imaš:
+    // { type: 'youtube', src: 'VIDEO_ID', title: 'Naziv vežbe' },
   ];
 
   return (

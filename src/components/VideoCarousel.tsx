@@ -6,15 +6,43 @@ import type { EmblaOptionsType } from 'embla-carousel';
 import { RxChevronLeft, RxChevronRight } from 'react-icons/rx';
 
 export type VideoSlide = {
-  src: string;          
+  type: 'local' | 'youtube' | 'vimeo';
+  src: string;          // URL ili YouTube/Vimeo ID
   fallback?: string;    
   poster?: string;
+  title?: string;
 };
 
 interface VideoCarouselProps {
   slides: VideoSlide[];
   options?: EmblaOptionsType;
 }
+
+// Komponenta za YouTube embed (optimizovano za Shorts)
+const YouTubeEmbed = ({ videoId, title }: { videoId: string; title?: string }) => (
+  <div className="absolute inset-0 flex items-center justify-center">
+    <iframe
+      className="w-full h-full max-w-[400px] md:max-w-[450px]"
+      src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=0`}
+      title={title || "YouTube video"}
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    />
+  </div>
+);
+
+// Komponenta za Vimeo embed
+const VimeoEmbed = ({ videoId, title }: { videoId: string; title?: string }) => (
+  <iframe
+    className="absolute inset-0 w-full h-full"
+    src={`https://player.vimeo.com/video/${videoId}?color=0c88dd&title=0&byline=0&portrait=0`}
+    title={title || "Vimeo video"}
+    frameBorder="0"
+    allow="autoplay; fullscreen; picture-in-picture"
+    allowFullScreen
+  />
+);
 
 export default function VideoCarousel({
   slides,
@@ -33,11 +61,16 @@ export default function VideoCarousel({
     onSelect();
     emblaApi.on('select', onSelect);
 
-    // ✅ cleanup MORA da koristi off(...)
     return () => {
       emblaApi.off('select', onSelect);
     };
   }, [emblaApi]);
+
+  // Za YouTube/Vimeo, učitavanje je instant
+  useEffect(() => {
+    const newLoadingStates = slides.map(slide => slide.type === 'local');
+    setIsLoading(newLoadingStates);
+  }, [slides]);
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
@@ -58,107 +91,121 @@ export default function VideoCarousel({
                   className="relative w-full h-[70vh] sm:pb-[56.25%] sm:h-auto bg-black"
                   data-slide-wrap
                 >
-                  <video
-                    key={slide.src}
-                    src={slide.src}
-                    poster={slide.poster}
-                    controls
-                    playsInline
-                    preload="metadata"
-                    className="absolute inset-0 w-full h-full object-contain bg-black"
-                    onPlay={() =>
-                      setIsPlaying((p) => {
-                        const n = [...p];
-                        n[idx] = true;
-                        return n;
-                      })
-                    }
-                    onPause={() =>
-                      setIsPlaying((p) => {
-                        const n = [...p];
-                        n[idx] = false;
-                        return n;
-                      })
-                    }
-                    onLoadedMetadata={() =>
-                      setIsLoading((p) => {
-                        const n = [...p];
-                        n[idx] = false;
-                        return n;
-                      })
-                    }
-                    onError={(ev) => {
-                      const videoEl = ev.currentTarget;
-
-                      const fb = slide.fallback;
-                      const alreadyOnFallback = fb && videoEl.currentSrc.includes(fb);
-
-                      if (fb && !alreadyOnFallback) {
-                        console.warn('Primarni video nije dostupan. Fallback:', fb);
-                        videoEl.src = fb;
-                        videoEl.load();
-                        videoEl.play().catch(() => {});
-                        return;
-                      }
-
-                      setHadError((p) => {
-                        const n = [...p];
-                        n[idx] = true;
-                        return n;
-                      });
-                      setIsLoading((p) => {
-                        const n = [...p];
-                        n[idx] = false;
-                        return n;
-                      });
-
-                      videoEl.style.display = 'none';
-                    }}
-                  />
-
-                  {/* ▶ Play overlay (mobilni) */}
-                  {!hadError[idx] && !isLoading[idx] && !isPlaying[idx] && (
-                    <button
-                      aria-label="Pusti video"
-                      className="absolute inset-0 m-auto w-16 h-16 rounded-full bg-white/90 text-gray-900 flex items-center justify-center shadow-lg hover:scale-105 transition"
-                      onClick={(e) => {
-                        // ✅ dodali smo parametar e
-                        const wrap = (e.currentTarget as HTMLElement).closest('[data-slide-wrap]')!;
-                        const video = wrap.querySelector('video') as HTMLVideoElement | null;
-                        video?.play().catch(() => {});
-                      }}
-                    >
-                      ▶
-                    </button>
+                  {/* YouTube embed */}
+                  {slide.type === 'youtube' && (
+                    <YouTubeEmbed videoId={slide.src} title={slide.title} />
                   )}
 
-                  {/* Loading overlay */}
-                  {isLoading[idx] && (
-                    <div className="absolute inset-0 flex items-center justify-center text-white">
-                      <div className="text-center opacity-80">
-                        <div className="text-4xl mb-2">📹</div>
-                        <div className="font-medium">Video se učitava…</div>
-                        <div className="text-xs text-gray-300 mt-1">{slide.src}</div>
-                      </div>
-                    </div>
+                  {/* Vimeo embed */}
+                  {slide.type === 'vimeo' && (
+                    <VimeoEmbed videoId={slide.src} title={slide.title} />
                   )}
 
-                  {/* Error overlay */}
-                  {hadError[idx] && (
-                    <div className="absolute inset-0 flex items-center justify-center text-white bg-black/70">
-                      <div className="text-center">
-                        <div className="text-4xl mb-2">⚠️</div>
-                        <div className="font-semibold mb-2">Nije moguće učitati video</div>
-                        <a
-                          href={slide.fallback || slide.src}
-                          className="underline text-blue-300"
-                          target="_blank"
-                          rel="noopener noreferrer"
+                  {/* Lokalni video */}
+                  {slide.type === 'local' && (
+                    <>
+                      <video
+                        key={slide.src}
+                        src={slide.src}
+                        poster={slide.poster}
+                        controls
+                        playsInline
+                        preload="metadata"
+                        className="absolute inset-0 w-full h-full object-contain bg-black"
+                        onPlay={() =>
+                          setIsPlaying((p) => {
+                            const n = [...p];
+                            n[idx] = true;
+                            return n;
+                          })
+                        }
+                        onPause={() =>
+                          setIsPlaying((p) => {
+                            const n = [...p];
+                            n[idx] = false;
+                            return n;
+                          })
+                        }
+                        onLoadedMetadata={() =>
+                          setIsLoading((p) => {
+                            const n = [...p];
+                            n[idx] = false;
+                            return n;
+                          })
+                        }
+                        onError={(ev) => {
+                          const videoEl = ev.currentTarget;
+
+                          const fb = slide.fallback;
+                          const alreadyOnFallback = fb && videoEl.currentSrc.includes(fb);
+
+                          if (fb && !alreadyOnFallback) {
+                            console.warn('Primarni video nije dostupan. Fallback:', fb);
+                            videoEl.src = fb;
+                            videoEl.load();
+                            videoEl.play().catch(() => {});
+                            return;
+                          }
+
+                          setHadError((p) => {
+                            const n = [...p];
+                            n[idx] = true;
+                            return n;
+                          });
+                          setIsLoading((p) => {
+                            const n = [...p];
+                            n[idx] = false;
+                            return n;
+                          });
+
+                          videoEl.style.display = 'none';
+                        }}
+                      />
+
+                      {/* Play overlay (samo za lokalne videe) */}
+                      {!hadError[idx] && !isLoading[idx] && !isPlaying[idx] && (
+                        <button
+                          aria-label="Pusti video"
+                          className="absolute inset-0 m-auto w-16 h-16 rounded-full bg-white/90 text-gray-900 flex items-center justify-center shadow-lg hover:scale-105 transition"
+                          onClick={(e) => {
+                            const wrap = (e.currentTarget as HTMLElement).closest('[data-slide-wrap]')!;
+                            const video = wrap.querySelector('video') as HTMLVideoElement | null;
+                            video?.play().catch(() => {});
+                          }}
                         >
-                          Otvori direktno
-                        </a>
-                      </div>
-                    </div>
+                          ▶
+                        </button>
+                      )}
+
+                      {/* Loading overlay (samo za lokalne videe) */}
+                      {isLoading[idx] && (
+                        <div className="absolute inset-0 flex items-center justify-center text-white">
+                          <div className="text-center opacity-80">
+                            <div className="text-4xl mb-2">📹</div>
+                            <div className="font-medium">Video se učitava…</div>
+                            <div className="text-xs text-gray-300 mt-1">{slide.src}</div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Error overlay (samo za lokalne videe) */}
+                      {hadError[idx] && (
+                        <div className="absolute inset-0 flex items-center justify-center text-white bg-black/70">
+                          <div className="text-center">
+                            <div className="text-4xl mb-2">⚠️</div>
+                            <div className="font-semibold mb-2">Nije moguće učitati video</div>
+                            <a
+                              href={slide.fallback || slide.src}
+                              className="underline text-blue-300"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Otvori direktno
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               </div>
