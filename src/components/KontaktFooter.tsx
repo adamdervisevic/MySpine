@@ -1,5 +1,4 @@
 import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
-import LazyMap from "./LazyMap";
 
 export default function KontaktFooter() {
   return (
@@ -25,7 +24,6 @@ export default function KontaktFooter() {
               <div>
                 <span className="font-semibold">Telefon:</span>
                 <p>
-                  {/* tel sa internacionalnim formatom */}
                   <a
                     href="tel:+38162777566"
                     className="hover:underline hover:text-blue-600 transition"
@@ -82,14 +80,21 @@ export default function KontaktFooter() {
             </div>
           </div>
 
-          {/* Right: Mapa (lazy-load) */}
+          {/* Right: Mapa (direktan iframe) */}
           <div className="lg:w-1/2 w-full flex items-center justify-center">
-            <LazyMap
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2837.8467396302817!2d20.92546552511691!3d44.66148283538663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475093c3a97dbf4b%3A0xdeb1a086de3a5819!2sKnez%20Mihajlova%2046%2C%20Smederevo%2011300!5e0!3m2!1sen!2srs!4v1701034000404!5m2!1sen!2srs"
-              placeholder="/images/map-placeholder.webp"
-              title="Lokacija ordinacije MySpine"
-              autoLoadOnView  
-            />
+            <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2837.8467396302817!2d20.92546552511691!3d44.66148283538663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475093c3a97dbf4b%3A0xdeb1a086de3a5819!2sKnez%20Mihajlova%2046%2C%20Smederevo%2011300!5e0!3m2!1sen!2srs!4v1701034000404!5m2!1sen!2srs"
+                title="Lokacija ordinacije MySpine"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full"
+              />
+            </div>
           </div>
         </div>
       </div>
