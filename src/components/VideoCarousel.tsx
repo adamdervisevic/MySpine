@@ -18,19 +18,54 @@ interface VideoCarouselProps {
   options?: EmblaOptionsType;
 }
 
-// Komponenta za YouTube embed (optimizovano za Shorts)
-const YouTubeEmbed = ({ videoId, title }: { videoId: string; title?: string }) => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <iframe
-      className="w-full h-full max-w-[400px] md:max-w-[450px]"
-      src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=0`}
-      title={title || "YouTube video"}
-      frameBorder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-    />
-  </div>
-);
+// OPTIMIZOVANA YouTube Facade komponenta - učitava se tek na klik!
+const YouTubeFacade = ({ videoId, title }: { videoId: string; title?: string }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  if (isLoaded) {
+    return (
+      <div className="absolute inset-0 flex items-center justify-center">
+        <iframe
+          className="w-full h-full max-w-[400px] md:max-w-[450px]"
+          src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`}
+          title={title || "YouTube video"}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+    );
+  }
+
+  // Prikaži samo thumbnail dok korisnik ne klikne
+  return (
+    <div 
+      className="absolute inset-0 flex items-center justify-center cursor-pointer group"
+      onClick={() => setIsLoaded(true)}
+    >
+      {/* YouTube thumbnail */}
+      <img
+        src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
+        alt={title}
+        className="w-full h-full object-cover"
+        loading="lazy"
+      />
+      
+      {/* Play dugme */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+          <svg
+            className="w-8 h-8 ml-1 text-white"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // Komponenta za Vimeo embed
 const VimeoEmbed = ({ videoId, title }: { videoId: string; title?: string }) => (
@@ -41,6 +76,7 @@ const VimeoEmbed = ({ videoId, title }: { videoId: string; title?: string }) => 
     frameBorder="0"
     allow="autoplay; fullscreen; picture-in-picture"
     allowFullScreen
+    loading="lazy"
   />
 );
 
@@ -79,7 +115,7 @@ export default function VideoCarousel({
     <div className="relative w-full max-w-4xl mx-auto my-12 px-4">
       <div className="text-center mb-8">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Video galerija</h2>
-        <p className="text-gray-600">Pogledajte naše najnovije video sadržaje</p>
+        <p className="text-gray-600">Pogledajte naše vežbe i tretmane</p>
       </div>
 
       <div className="relative">
@@ -91,9 +127,9 @@ export default function VideoCarousel({
                   className="relative w-full h-[70vh] sm:pb-[56.25%] sm:h-auto bg-black"
                   data-slide-wrap
                 >
-                  {/* YouTube embed */}
+                  {/* OPTIMIZOVAN YouTube sa Facade */}
                   {slide.type === 'youtube' && (
-                    <YouTubeEmbed videoId={slide.src} title={slide.title} />
+                    <YouTubeFacade videoId={slide.src} title={slide.title} />
                   )}
 
                   {/* Vimeo embed */}
@@ -135,7 +171,6 @@ export default function VideoCarousel({
                         }
                         onError={(ev) => {
                           const videoEl = ev.currentTarget;
-
                           const fb = slide.fallback;
                           const alreadyOnFallback = fb && videoEl.currentSrc.includes(fb);
 
@@ -183,7 +218,6 @@ export default function VideoCarousel({
                           <div className="text-center opacity-80">
                             <div className="text-4xl mb-2">📹</div>
                             <div className="font-medium">Video se učitava…</div>
-                            <div className="text-xs text-gray-300 mt-1">{slide.src}</div>
                           </div>
                         </div>
                       )}

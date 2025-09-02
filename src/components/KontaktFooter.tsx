@@ -1,4 +1,45 @@
 import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { useState } from "react";
+
+// Lazy Loading komponenta za Google Maps
+const LazyMap = () => {
+  const [showMap, setShowMap] = useState(false);
+  
+  return (
+    <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-lg">
+      {!showMap ? (
+        <div 
+          className="w-full h-full bg-gray-200 flex items-center justify-center cursor-pointer relative"
+          onClick={() => setShowMap(true)}
+        >
+          {/* Statična slika mape kao placeholder */}
+          <img 
+            src="/images/map.webp" // Napravi screenshot mape i stavi ga ovde
+            alt="Lokacija MySpine"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+            <button className="bg-white px-6 py-3 rounded-lg shadow-lg hover:scale-105 transition">
+              <span className="text-gray-800 font-semibold">Klikni za interaktivnu mapu</span>
+            </button>
+          </div>
+        </div>
+      ) : (
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2837.8467396302817!2d20.92546552511691!3d44.66148283538663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475093c3a97dbf4b%3A0xdeb1a086de3a5819!2sKnez%20Mihajlova%2046%2C%20Smederevo%2011300!5e0!3m2!1sen!2srs!4v1701034000404!5m2!1sen!2srs"
+          title="Lokacija ordinacije MySpine"
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen={true}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="w-full h-full"
+        />
+      )}
+    </div>
+  );
+};
 
 export default function KontaktFooter() {
   return (
@@ -80,21 +121,9 @@ export default function KontaktFooter() {
             </div>
           </div>
 
-          {/* Right: Mapa (direktan iframe) */}
+          {/* Right: Lazy Loading Mapa */}
           <div className="lg:w-1/2 w-full flex items-center justify-center">
-            <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-lg">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2837.8467396302817!2d20.92546552511691!3d44.66148283538663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475093c3a97dbf4b%3A0xdeb1a086de3a5819!2sKnez%20Mihajlova%2046%2C%20Smederevo%2011300!5e0!3m2!1sen!2srs!4v1701034000404!5m2!1sen!2srs"
-                title="Lokacija ordinacije MySpine"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen={true}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full"
-              />
-            </div>
+            <LazyMap />
           </div>
         </div>
       </div>
