@@ -1,12 +1,57 @@
-# React + Vite
+# My Spine - Fizioterapeutska klinika 🏥
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## O projektu
 
-Currently, two official plugins are available:
+**My Spine** je moderna web stranica za fizioterapeutsku kliniku koja se specijalizuje za rehabilitaciju i različite vrste terapija. Sajt je dizajniran sa fokusom na korisničko iskustvo i profesionalnu prezentaciju medicinskih usluga.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live sajt
+**[www.myspine.rs](https://www.myspine.rs/)**
 
-## Expanding the ESLint configuration
+## 🎯 Cilj projekta
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Kreiranje profesionalne online prezentacije za fizioterapeutsku praksu koja omogućava:
+- Jasnu prezentaciju dostupnih terapija
+- Profesionalnu komunikaciju sa pacijentima
+- Povećanje dostupnosti informacija o uslugama
+
+## 💼 Usluge koje klinika pruža
+
+- **Fizioterapeutski pregled** - Kompletna procena stanja pacijenta
+- **Fizikalna terapija** - Korišćenje fizikalnih faktora u lečenju
+- **Dry needling** - Tehnika suve igloterapije za tretman trigger points
+- **Kineziterapija** - Terapija pokretom i vežbama
+- **Masaže** - Različite vrste terapeutskih masaža
+- **Tecar terapija** - Napredna dielektermijska terapija
+- **Spinalna dekompresiona terapija** - Specijalizovani tretman kičmenog stuba
+
+## 🛠️ Tehnologije korišćene
+
+- **Frontend**: [Tailwind, ReactJS]
+- **Domain**: .rs domen
+
+## ✨ Ključne funkcionalnosti
+
+- 📱 **Responsive dizajn** - Optimizovan za sve uređaje
+- 🎨 **Moderni UI/UX** - Čist i profesionalan dizajn
+- 📍 **Kontakt informacije** - Lako dostupni podaci za kontakt
+- 🏥 **Prezentacija usluga** - Detaljne informacije o svim terapijama
+
+## 🎨 Dizajn pristup
+
+Sajt koristi toplu color paletu sa profesionalnim pristupom, fokusirajući se na:
+- Jednostavnu navigaciju
+- Jasno predstavljanje informacija
+- Vizuelno privlačnu prezentaciju
+- Optimizaciju za različite ekrane
+
+## 📞 Kontakt informacije
+
+Za više informacija o klinici ili projektu, možete me kontaktirati.
+
+## 🏆 Status projekta
+
+✅ **Završeno** - Sajt je live i funkcionalan
+
+---
+
+*Ovaj projekat predstavlja profesionalnu web prezentaciju u oblasti zdravstva, kreiranu sa ciljem poboljšanja pristupačnosti fizioterapijskih usluga.*
