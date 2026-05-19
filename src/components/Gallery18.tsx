@@ -42,9 +42,19 @@ export const Gallery18 = (props: Gallery18Props) => {
   }, [api]);
 
   return (
-    <section id="relume">
-      <div className="px-[5%] py-16 md:py-24 lg:py-28">
+    <section id="galerija" className="bg-surface-soft">
+      <div className="px-[5%] py-20 md:py-28 lg:py-32">
         <div className="container">
+          <div className="mx-auto mb-12 max-w-2xl text-center md:mb-16">
+            <span className="eyebrow justify-center">Galerija</span>
+            <h2 className="mt-4 text-4xl font-bold text-ink md:text-5xl">
+              Naša ordinacija
+            </h2>
+            <p className="mt-4 text-base text-gray-600 md:text-lg">
+              Pogledajte prostor i opremu u kojem sprovodimo terapije.
+            </p>
+          </div>
+
           <Carousel
             setApi={setApi}
             opts={{
@@ -52,36 +62,40 @@ export const Gallery18 = (props: Gallery18Props) => {
               align: "start",
             }}
           >
-            <div className="w-full max-w-4xl mx-auto overflow-hidden">
-              <CarouselContent className="-ml-3 md:-ml-4">
+            <div className="mx-auto w-full max-w-5xl overflow-hidden">
+              <CarouselContent className="-ml-4">
                 {images.map((image, index) => (
                   <CarouselItem
                     key={index}
-                    className="basis-full px-3 sm:basis-1/1 md:basis-1/2 lg:basis-1/3 md:px-4"
+                    className="basis-full pl-4 md:basis-1/2 lg:basis-1/3"
                   >
-                    <div className="w-full aspect-[4/5] overflow-hidden">
+                    <div className="group aspect-[4/5] w-full overflow-hidden rounded-2xl shadow-card">
                       <img
                         src={image.src}
                         alt={image.alt}
-                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   </CarouselItem>
                 ))}
               </CarouselContent>
 
-              <CarouselPrevious className="hidden md:flex md:size-12 lg:size-14" />
-              <CarouselNext className="hidden md:flex md:size-12 lg:size-14" />
+              <CarouselPrevious className="hidden border-none bg-white text-ink shadow-card hover:bg-brand-50 md:flex md:size-12 lg:size-14" />
+              <CarouselNext className="hidden border-none bg-white text-ink shadow-card hover:bg-brand-50 md:flex md:size-12 lg:size-14" />
             </div>
-            <div className="mt-[30px] flex items-center justify-center md:mt-[46px]">
+            <div className="mt-9 flex items-center justify-center md:mt-12">
               {images.map((_, index) => (
                 <button
                   key={index}
+                  aria-label={`Slika ${index + 1}`}
                   onClick={() => api?.scrollTo(index)}
-                  className={clsx("relative mx-[3px] inline-block size-2 rounded-full", {
-                    "bg-black": current === index + 1,
-                    "bg-neutral-darker/40": current !== index + 1,
-                  })}
+                  className={clsx(
+                    "mx-1 inline-block h-2 rounded-full transition-all",
+                    current === index + 1
+                      ? "w-6 bg-brand-600"
+                      : "w-2 bg-ink/20 hover:bg-ink/40"
+                  )}
                 />
               ))}
             </div>

@@ -140,18 +140,18 @@ export const GoogleReviewsCarousel = (props: GoogleReviewsCarouselProps) => {
   }, [api]);
 
   return (
-    <section 
-      id="google-reviews" 
-      className="px-[5%] py-16 md:py-24 lg:py-28"
-      style={{ backgroundColor: '#f8f9fa' }}
+    <section
+      id="google-reviews"
+      className="bg-surface px-[5%] py-20 md:py-28 lg:py-32"
     >
       <div className="container mx-auto">
         {/* Header */}
-        <div className="mx-auto mb-12 w-full max-w-4xl text-center md:mb-18 lg:mb-20">
-          <h2 className="rb-5 mb-5 text-5xl font-bold md:mb-6 md:text-7xl lg:text-8xl" style={{ color: '#333' }}>
+        <div className="mx-auto mb-12 w-full max-w-2xl text-center md:mb-16">
+          <span className="eyebrow justify-center">Recenzije</span>
+          <h2 className="mb-4 mt-4 text-4xl font-bold text-ink md:text-5xl">
             {heading}
           </h2>
-          <p className="md:text-md" style={{ color: '#666' }}>{description}</p>
+          <p className="text-base text-gray-600 md:text-lg">{description}</p>
           
           {/* Google Rating Display */}
           <div className="flex items-center justify-center gap-4 mb-6 mt-8">
@@ -168,7 +168,7 @@ export const GoogleReviewsCarousel = (props: GoogleReviewsCarouselProps) => {
                   />
                 ))}
               </div>
-              <span className="text-lg font-semibold" style={{ color: '#333' }}>
+              <span className="text-lg font-semibold text-ink">
                 {googleRating} ({totalReviews} recenzija)
               </span>
             </div>
@@ -192,32 +192,23 @@ export const GoogleReviewsCarousel = (props: GoogleReviewsCarouselProps) => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious 
-              className="hidden md:flex md:size-12 lg:size-14" 
-              style={{ 
-                backgroundColor: 'white',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-              }}
-            />
-            <CarouselNext 
-              className="hidden md:flex md:size-12 lg:size-14"
-              style={{ 
-                backgroundColor: 'white',
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-              }}
-            />
+            <CarouselPrevious className="hidden border-none bg-white text-ink shadow-card hover:bg-brand-50 md:flex md:size-12 lg:size-14" />
+            <CarouselNext className="hidden border-none bg-white text-ink shadow-card hover:bg-brand-50 md:flex md:size-12 lg:size-14" />
           </div>
           
           {/* Dots */}
-          <div className="mt-[30px] flex items-center justify-center md:mt-[46px]">
+          <div className="mt-9 flex items-center justify-center md:mt-12">
             {reviews.map((_, index) => (
               <button
                 key={index}
+                aria-label={`Recenzija ${index + 1}`}
                 onClick={() => api?.scrollTo(index)}
-                className="relative mx-[3px] inline-block size-2 rounded-full"
-                style={{
-                  backgroundColor: current === index + 1 ? '#4285f4' : 'rgba(0,0,0,0.3)'
-                }}
+                className={
+                  "mx-1 inline-block h-2 rounded-full transition-all " +
+                  (current === index + 1
+                    ? "w-6 bg-brand-600"
+                    : "w-2 bg-ink/20 hover:bg-ink/40")
+                }
               />
             ))}
           </div>
@@ -239,12 +230,8 @@ const GoogleReviewCard = ({ review }: { review: GoogleReview }) => {
 
   return (
     <div
-      className="flex w-full flex-col items-start justify-between p-6 md:p-8 relative transition-all duration-300"
+      className="relative flex w-full flex-col items-start justify-between rounded-2xl border border-gray-100 bg-white p-6 shadow-card transition-all duration-300 md:p-8"
       style={{
-        backgroundColor: "white",
-        border: "1px solid #e0e0e0",
-        borderRadius: "10px",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
         overflow: "hidden",
         height: cardHeight,
         minHeight: 0,
@@ -265,20 +252,18 @@ const GoogleReviewCard = ({ review }: { review: GoogleReview }) => {
 
       {/* Quote */}
       <blockquote
-        className="md:text-md flex-grow relative"
+        className="relative flex-grow text-[15px] leading-relaxed text-gray-700"
         style={{
-          color: "#333",
           fontStyle: "italic",
-          lineHeight: "1.6",
           transition: "max-height 0.3s",
-          marginBottom: 0
+          marginBottom: 0,
         }}
       >
         "{displayQuote}"
         {!expanded && isLong && <>...{" "}
           <button
             onClick={() => setExpanded(true)}
-            className="text-[#4285f4] font-semibold underline cursor-pointer"
+            className="cursor-pointer font-semibold text-brand-700 underline"
             style={{ background: "none", border: "none", padding: 0 }}
           >
             Pročitaj više
@@ -287,7 +272,7 @@ const GoogleReviewCard = ({ review }: { review: GoogleReview }) => {
         {expanded && isLong && (
           <button
             onClick={() => setExpanded(false)}
-            className="text-[#4285f4] font-semibold underline cursor-pointer ml-2"
+            className="ml-2 cursor-pointer font-semibold text-brand-700 underline"
             style={{ background: "none", border: "none", padding: 0 }}
           >
             Prikaži manje
@@ -321,21 +306,14 @@ const GoogleReviewCard = ({ review }: { review: GoogleReview }) => {
               className="size-12 min-h-12 min-w-12 rounded-full object-cover"
             />
           ) : (
-            <div
-              className="size-12 min-h-12 min-w-12 rounded-full flex items-center justify-center text-white font-bold"
-              style={{ backgroundColor: "#4285f4" }}
-            >
+            <div className="flex size-12 min-h-12 min-w-12 items-center justify-center rounded-full bg-brand-600 font-bold text-white">
               {review.initial || review.name.charAt(0)}
             </div>
           )}
         </div>
         <div>
-          <p className="font-semibold" style={{ color: "#333" }}>
-            {review.name}
-          </p>
-          <p style={{ color: "#666" }}>
-            {review.date}
-          </p>
+          <p className="font-semibold text-ink">{review.name}</p>
+          <p className="text-sm text-gray-500">{review.date}</p>
         </div>
       </div>
     </div>

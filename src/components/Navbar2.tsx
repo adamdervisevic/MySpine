@@ -63,17 +63,17 @@ export const Navbar2 = (props: Navbar2Props) => {
   const isMobile = useMediaQuery("(max-width: 991px)");
 
   // Tema po stranici
-  const textCls = transparent ? "text-white" : "text-gray-900";
-  const borderCls = transparent ? "border-white" : "border-gray-900";
-  const burgerCls = transparent ? "bg-white" : "bg-gray-900";
+  const textCls = transparent ? "text-white" : "text-ink";
+  const linkHoverCls = transparent ? "hover:text-brand-200" : "hover:text-brand-600";
+  const burgerCls = transparent ? "bg-white" : "bg-ink";
   const barBgCls = transparent
-    ? "bg-transparent"
-    : "bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 shadow-sm";
+    ? "bg-gradient-to-b from-ink/70 via-ink/25 to-transparent"
+    : "bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 shadow-[0_2px_24px_-12px_rgba(15,42,51,0.45)]";
 
   // Desktop dropdown pozadina
   const dropdownCls = transparent
-    ? "bg-white/10 backdrop-blur-lg text-white lg:border lg:border-white/20 lg:p-2"
-    : "bg-white shadow-lg text-gray-900 lg:border lg:border-gray-200 lg:p-2";
+    ? "bg-ink/85 backdrop-blur-xl text-white lg:border lg:border-white/15 lg:p-2"
+    : "bg-white shadow-card text-ink lg:border lg:border-gray-100 lg:p-2";
 
   return (
     <section
@@ -85,21 +85,17 @@ export const Navbar2 = (props: Navbar2Props) => {
     >
       <div className="mx-auto size-full lg:grid lg:grid-cols-[0.375fr_1fr_0.375fr] lg:items-center lg:justify-between">
         <div className="flex min-h-16 items-center justify-between px-[5%] md:min-h-18 lg:min-h-full lg:px-0">
-          <SmartLink to={logo.url || "/"}>
-            <img src={logo.src} alt={logo.alt} className="h-18" />
+          <SmartLink to={logo.url || "/"} className="shrink-0">
+            <img src={logo.src} alt={logo.alt} className="h-12 md:h-14 w-auto" />
           </SmartLink>
 
           {/* Mobile actions */}
-          <div className="flex items-center gap-4 lg:hidden">
+          <div className="flex items-center gap-3 lg:hidden">
             <div>
               {buttons.map((button, index) => (
                 <Button
                   key={index}
-                  className={clsx(
-                    "w-full px-6 py-2 border-2 bg-transparent rounded hover:bg-black/5",
-                    borderCls,
-                    textCls
-                  )}
+                  className="rounded-full bg-accent-500 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(240,138,60,0.8)] transition hover:bg-accent-600"
                   {...button}
                 >
                   {button.title}
@@ -120,7 +116,7 @@ export const Navbar2 = (props: Navbar2Props) => {
 
         {/* MOBILE overlay meni */}
         {isMobileMenuOpen && isMobile && (
-          <div className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-lg flex flex-col items-center justify-start px-[8%] pt-20">
+          <div className="fixed inset-0 z-[9999] bg-ink/95 backdrop-blur-lg flex flex-col items-center justify-start px-[8%] pt-24">
             <button
               className="absolute top-8 right-8 text-4xl text-white"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -137,7 +133,7 @@ export const Navbar2 = (props: Navbar2Props) => {
                   to={navLink.url}
                   target={navLink.target}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block font-bold tracking-wide py-4 text-2xl text-white"
+                  className="block font-semibold tracking-wide py-4 text-2xl text-white transition-colors hover:text-brand-200"
                 >
                   {navLink.title}
                 </SmartLink>
@@ -157,13 +153,17 @@ export const Navbar2 = (props: Navbar2Props) => {
           >
             {navLinks.map((navLink, index) =>
               navLink.subMenuLinks?.length ? (
-                <SubMenu key={index} navLink={navLink} isMobile={false} textCls={textCls} dropdownCls={dropdownCls} />
+                <SubMenu key={index} navLink={navLink} isMobile={false} textCls={clsx(textCls, linkHoverCls)} dropdownCls={dropdownCls} />
               ) : (
                 <SmartLink
                   key={index}
                   to={navLink.url}
                   target={navLink.target}
-                  className={clsx("block font-medium tracking-wide px-5 py-2 text-[22px]", textCls)}
+                  className={clsx(
+                    "block font-medium tracking-wide px-5 py-2 text-[17px] transition-colors",
+                    textCls,
+                    linkHoverCls
+                  )}
                 >
                   {navLink.title}
                 </SmartLink>
@@ -177,11 +177,7 @@ export const Navbar2 = (props: Navbar2Props) => {
           {buttons.map((button, index) => (
             <Button
               key={index}
-              className={clsx(
-                "px-6 py-2 border-2 bg-transparent rounded hover:bg-black/5",
-                borderCls,
-                textCls
-              )}
+              className="rounded-full bg-accent-500 px-7 py-3 text-[15px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(240,138,60,0.85)] transition hover:-translate-y-0.5 hover:bg-accent-600"
               {...button}
             >
               {button.title}
@@ -197,8 +193,8 @@ const SubMenu = ({
   navLink,
   isMobile,
   onNavigate,
-  textCls = "text-gray-900",
-  dropdownCls = "bg-white shadow-lg text-gray-900 lg:border lg:border-gray-200 lg:p-2",
+  textCls = "text-ink hover:text-brand-600",
+  dropdownCls = "bg-white shadow-card text-ink lg:border lg:border-gray-100 lg:p-2",
 }: {
   navLink: NavLink;
   isMobile: boolean;
@@ -214,7 +210,7 @@ const SubMenu = ({
         className={
           isMobile
             ? "w-full font-bold text-2xl py-4 text-white flex items-center justify-center gap-2 border-b border-white/10 last:border-none"
-            : clsx("flex items-center gap-2 py-3 text-center text-md lg:w-auto lg:justify-start lg:gap-2 lg:px-4 lg:py-2 lg:text-lg", textCls)
+            : clsx("flex items-center gap-2 py-3 text-center font-medium transition-colors lg:w-auto lg:justify-start lg:gap-1.5 lg:px-5 lg:py-2 lg:text-[17px]", textCls)
         }
         onClick={() => setIsDropdownOpen((p) => !p)}
         type="button"
@@ -254,7 +250,7 @@ const SubMenu = ({
             className={clsx("rounded-lg lg:absolute lg:z-50", dropdownCls)}
           >
             {navLink.subMenuLinks?.map((subMenuLink, i) => (
-              <SmartLink key={i} to={subMenuLink.url} target={subMenuLink.target} className="block py-3 text-center lg:px-4 lg:py-2 lg:text-left">
+              <SmartLink key={i} to={subMenuLink.url} target={subMenuLink.target} className="block whitespace-nowrap rounded-lg py-3 text-center transition-colors hover:bg-brand-50 hover:text-brand-700 lg:px-4 lg:py-2.5 lg:text-left">
                 {subMenuLink.title}
               </SmartLink>
             ))}
@@ -277,7 +273,7 @@ export const Navbar2Defaults = {
         { title: "Fizikalna terapija", url: "/terapija", target: "_blank" },
         { title: "Dry needling", url: "/dry-needling", target: "_blank" },
         { title: "Kineziterapija", url: "/kineziterapija", target: "_blank" },
-        { title: "Masaze", url: "/masaze", target: "_blank" },
+        { title: "Masaže", url: "/masaze", target: "_blank" },
         { title: "Tecar terapija", url: "/tecar", target: "_blank" },
         { title: "Spinalna dekompresiona terapija", url: "/spinalna-dekompresija", target: "_blank" },
       ],
@@ -285,5 +281,5 @@ export const Navbar2Defaults = {
     { title: "Cenovnik", url: "/cenovnik", target: "_blank" },
     { title: "Kontakt", url: "/#kontakt" },
   ],
-  buttons: [{ title: "Zakazi termin", size: "sm" }],
+  buttons: [{ title: "Zakaži termin", size: "sm" }],
 };
