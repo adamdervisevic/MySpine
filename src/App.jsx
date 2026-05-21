@@ -5,10 +5,12 @@ import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-route
 import { Navbar2 } from "./components/Navbar2";
 import { Header7 } from "./components/Header7";
 import { Layout22 } from "./components/Layout22";
+import Services from "./components/Services";
 import { Gallery18 } from "./components/Gallery18";
 import { Testimonial19 } from "./components/Testimonial19";
 import KontaktFooter from "./components/KontaktFooter";
 import VideoCarousel from "./components/VideoCarousel";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 // Stranice
 import FizioterapeutskiPregledPage from "./pages/FizioterapeutskiPregledPage.tsx";
@@ -45,6 +47,7 @@ function Home() {
     <>
       <Header7 />
       <Layout22 />
+      <Services />
       <Gallery18 />
       <VideoCarousel slides={myVideos} />
       <Testimonial19 />
@@ -78,6 +81,8 @@ export default function App() {
         {/* Cenovnik */}
         <Route path="/cenovnik" element={<CenovnikPage />} />
       </Routes>
+
+      <WhatsAppButton />
     </BrowserRouter>
   );
 }

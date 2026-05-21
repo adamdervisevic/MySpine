@@ -2,10 +2,11 @@
 "use client";
 
 import { useState } from "react";
-import { Button, useMediaQuery } from "@relume_io/relume-ui";
+import { useMediaQuery } from "@relume_io/relume-ui";
 import type { ButtonProps } from "@relume_io/relume-ui";
 import { AnimatePresence, motion } from "framer-motion";
 import { RxChevronDown } from "react-icons/rx";
+import { FiPhone } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import clsx from "clsx";
@@ -91,17 +92,13 @@ export const Navbar2 = (props: Navbar2Props) => {
 
           {/* Mobile actions */}
           <div className="flex items-center gap-3 lg:hidden">
-            <div>
-              {buttons.map((button, index) => (
-                <Button
-                  key={index}
-                  className="rounded-full bg-accent-500 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(240,138,60,0.8)] transition hover:bg-accent-600"
-                  {...button}
-                >
-                  {button.title}
-                </Button>
-              ))}
-            </div>
+            <a
+              href="tel:+38162777566"
+              className="inline-flex items-center gap-1.5 rounded-full bg-accent-500 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(240,138,60,0.8)] transition hover:bg-accent-600"
+            >
+              <FiPhone className="text-base" />
+              062 777 566
+            </a>
             <button
               className="-mr-2 flex size-12 flex-col items-center justify-center"
               onClick={() => setIsMobileMenuOpen((p) => !p)}
@@ -172,17 +169,15 @@ export const Navbar2 = (props: Navbar2Props) => {
           </motion.div>
         )}
 
-        {/* DESKTOP CTA dugme */}
+        {/* DESKTOP CTA — telefon */}
         <div className="hidden justify-self-end lg:block">
-          {buttons.map((button, index) => (
-            <Button
-              key={index}
-              className="rounded-full bg-accent-500 px-7 py-3 text-[15px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(240,138,60,0.85)] transition hover:-translate-y-0.5 hover:bg-accent-600"
-              {...button}
-            >
-              {button.title}
-            </Button>
-          ))}
+          <a
+            href="tel:+38162777566"
+            className="inline-flex items-center gap-2 rounded-full bg-accent-500 px-6 py-3 text-[15px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(240,138,60,0.85)] transition hover:-translate-y-0.5 hover:bg-accent-600"
+          >
+            <FiPhone className="text-base" />
+            062 777 566
+          </a>
         </div>
       </div>
     </section>
