@@ -63,7 +63,7 @@ export const Header7 = (props: Header7Props) => {
             <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a href="tel:+38162777566" className="btn-primary text-base">
                 <FiPhone className="text-lg" />
-                Zakaži termin
+                062 777 566
               </a>
               <a
                 href="#o-nama"

@@ -97,7 +97,7 @@ export default function Services() {
               className="group relative flex flex-col rounded-2xl border border-gray-100 bg-white p-7 shadow-card transition-all hover:-translate-y-1 hover:border-brand-200 hover:shadow-soft"
             >
               {s.highlight && (
-                <span className="absolute right-4 top-4 inline-flex items-center rounded-full bg-accent-500 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+                <span className="absolute right-4 top-4 inline-flex items-center rounded-full bg-brand-600 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
                   {s.highlight}
                 </span>
               )}
